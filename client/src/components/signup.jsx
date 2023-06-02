@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+
 import "../styles/login.css";
 import styles from "../styles/welcome.module.css";
-export default function signup() {
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    bday: "",
-    email: "",
-    password: "",
-  });
-  const navigate = useNavigate();
+import { useRecords } from "../helpers/useRecords";
 
+import { useLocation } from "react-router-dom";
+
+export default function signup({ form, setForm }) {
+  const records = useRecords();
+  // const history = useHistory();
+  const location = useLocation();
+  const navigate = useNavigate();
+  if (form && location.pathname === "/signup") {
+    console.log("THERE IS FORM");
+    navigate("/home");
+  }
   // These methods will update the state properties.
   function updateForm(value) {
     return setForm((prev) => {
@@ -22,10 +26,11 @@ export default function signup() {
     const target = document.getElementById(`${n}`);
 
     // child.classList[type]("error");
-    console.log(target);
-    var parentEl = target.parentElement;
-    console.log(parentEl.nextElementSibling);
-    parentEl.nextElementSibling.innerHTML = message;
+
+    var errorElement = target.parentElement.nextElementSibling;
+    errorElement.innerHTML = message;
+    target.parentElement.classList[type]("error");
+    target.previousElementSibling;
     // target.nextElementSibling.innerHTML = message;
     // target.classList[type]("error");
     // target.classList[type]("shake");
@@ -38,34 +43,39 @@ export default function signup() {
     //   target.parentElement.classList.remove("shake")
   };
   const handleCheckInput = (e) => {
-    // console.log(e.firstName);
-    if (!e.firstName || !e.lastName || !e.bday || !e.email || !e.password) {
-      if (!e.firstName) {
-        handleError("firstName", "First Name Cannot Be Empty");
-      } else {
-        handleError("firstName", " ", "remove");
-      }
-      if (!e.lastName) {
-        handleError("lastName", "Last Name Cannot Be Empty");
-      } else {
-        handleError("lastName", " ", "remove");
-      }
-      if (!e.bday) {
-        handleError("bday", "BirthDay Cannot Be Empty ", "remove");
-      } else {
-        handleError("birthDay", " ", "remove");
-      }
-      if (!e.email) {
-        handleError("email", "Email Cannot Be Empty");
-      } else {
-        handleError("email", " ", "remove");
-      }
+    if (!e.firstName) {
+      handleError("firstName", "First Name Cannot Be Empty");
+    } else {
+      handleError("firstName", " ", "remove");
+    }
 
-      if (!e.password) {
-        handleError("password", "Password Cannot Be Empty");
-      } else {
-        handleError("password", " ", "remove");
-      }
+    if (!e.lastName) {
+      handleError("lastName", "Last Name Cannot Be Empty");
+    } else {
+      handleError("lastName", " ", "remove");
+    }
+
+    if (!e.bday) {
+      handleError("bday", "Birth Date Cannot Be Empty ");
+    } else {
+      handleError("bday", " ", "remove");
+    }
+    if (!e.email) {
+      handleError("email", "Email Cannot Be Empty");
+    } else {
+      handleError("email", " ", "remove");
+    }
+
+    if (!e.password) {
+      handleError("password", "Password cannot be empty");
+    } else {
+      handleError("password", " ", "remove");
+    }
+
+    if (records.some((record) => record.email === e.email)) {
+      handleError("email", "Email exists");
+    } else {
+      handleError("email", " ", "remove");
     }
   };
 
@@ -73,22 +83,28 @@ export default function signup() {
   async function onSubmit(e) {
     e.preventDefault();
     handleCheckInput(form);
+
+    console.log(records);
+    let x = document.querySelectorAll('[class*="error"]');
+
+    if (!document.querySelectorAll('[class*="error"]').length > 0) {
+      console.log("good");
+      const newPerson = { ...form };
+
+      await fetch("http://localhost:5050/customer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPerson),
+      }).catch((error) => {
+        window.alert(error);
+        return;
+      });
+      navigate("/home");
+      // return handleCalculateAge(userInputs);
+    }
     // When a post request is sent to the create url, we'll add a new record to the database.
-    const newPerson = { ...form };
-
-    // await fetch("http://localhost:5050/customer", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(newPerson),
-    // }).catch((error) => {
-    //   window.alert(error);
-    //   return;
-    // });
-
-    setForm({ firstName: "", lastName: "", bday: "", email: "", password: "" });
-    // navigate("/");
   }
 
   // This following section will display the form that takes the input from the user.
@@ -119,7 +135,7 @@ export default function signup() {
                 onChange={(e) => updateForm({ firstName: e.target.value })}
               />
             </div>
-            <span className="errInfo">Test</span>
+            <span className="errInfo"></span>
           </div>
 
           <div className="formContent">
@@ -134,7 +150,7 @@ export default function signup() {
                 onChange={(e) => updateForm({ lastName: e.target.value })}
               />
             </div>
-            <span className="errInfo">test</span>
+            <span className="errInfo"></span>
           </div>
 
           <div className="formContent">
@@ -148,7 +164,7 @@ export default function signup() {
                 onChange={(e) => updateForm({ bday: e.target.value })}
               />
             </div>
-            <span className="errInfo">test</span>
+            <span className="errInfo"></span>
           </div>
 
           <div className="formContent">
@@ -163,7 +179,7 @@ export default function signup() {
                 onChange={(e) => updateForm({ email: e.target.value })}
               />
             </div>
-            <span className="errInfo">test</span>
+            <span className="errInfo"></span>
           </div>
 
           <div className="formContent">
@@ -178,8 +194,8 @@ export default function signup() {
                 onChange={(e) => updateForm({ password: e.target.value })}
               />
             </div>
+            <span className="errInfo"></span>
           </div>
-          <span className="errInfo">er</span>
 
           <div className="buttonContainer">
             <input type="submit" value="Sign Up" className="signupButton" />

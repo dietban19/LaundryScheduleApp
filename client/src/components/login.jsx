@@ -2,94 +2,82 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import "../styles/login.css";
 import styles from "../styles/welcome.module.css";
-export default function signup() {
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    bday: "",
+import { useRecords } from "../helpers/useRecords";
+
+export default function login({ form, setForm }) {
+  const [info, setInfo] = useState({
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
+  const records = useRecords();
 
-  // These methods will update the state properties.
+  const navigate = useNavigate();
   function updateForm(value) {
-    return setForm((prev) => {
+    return setInfo((prev) => {
       return { ...prev, ...value };
     });
   }
   const handleError = (n, message = "error", type = "add") => {
     const target = document.getElementById(`${n}`);
-
-    // child.classList[type]("error");
-    console.log(target);
-    var parentEl = target.parentElement;
-    console.log(parentEl.nextElementSibling);
-    // target.nextElementSibling.innerHTML = message;
-    // target.classList[type]("error");
-    // target.classList[type]("shake");
-    // target.addEventListener("animationend", () =>
-    //   t.parentElement.classList.remove("shake")
-    // );
-    // target.parentElement.classList[type]("error");
-    // target.parentElement.classList[type]("shake");
-    // target.parentElement.addEventListener("animationend", () =>
-    //   target.parentElement.classList.remove("shake")
+    // console.log(target.parentElement.nextElementSibling);
+    var errorElement = target.parentElement.nextElementSibling;
+    errorElement.innerHTML = message;
+    target.parentElement.classList[type]("error");
+    target.previousElementSibling;
   };
   const handleCheckInput = (e) => {
-    // console.log(e.firstName);
-    if (!e.firstName || !e.lastName || !e.bday || !e.email || !e.password) {
-      if (!e.firstName) {
-        handleError("firstName", "First Name Cannot Be Empty");
-      } else {
-        handleError("firstName", " ", "remove");
-      }
-      if (!e.lastName) {
-        handleError("lastName", "Last Name Cannot Be Empty");
-      } else {
-        handleError("lastName", " ", "remove");
-      }
-      if (!e.bday) {
-        handleError("bday", "BirthDay Cannot Be Empty ", "remove");
-      } else {
-        handleError("birthDay", " ", "remove");
-      }
-      if (!e.email) {
-        handleError("email", "Email Cannot Be Empty");
-      } else {
-        handleError("email", " ", "remove");
-      }
+    if (!e.email) {
+      console.log("no");
+      handleError("email", "Email Cannot Be Empty");
+    } else {
+      handleError("email", " ", "remove");
+    }
 
-      if (!e.password) {
-        handleError("password", "Password Cannot Be Empty");
-      } else {
-        handleError("password", " ", "remove");
+    if (!e.password) {
+      handleError("password", "Password Cannot Be Empty");
+    } else {
+      handleError("password", " ", "remove");
+    }
+    if (records.some((record) => record.email === e.email)) {
+      const matchedRecord = records.find((record) => record.email === e.email);
+      const matchedPassword = matchedRecord.password;
+      console.log(matchedPassword);
+      if (matchedPassword !== e.password) {
+        handleError("password", "Incorrect Password");
       }
+    } else {
+      handleError("email", "Email Does Not exist");
     }
   };
 
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
-    handleCheckInput(form);
-    // When a post request is sent to the create url, we'll add a new record to the database.
-    const newPerson = { ...form };
+    handleCheckInput(info);
+    let x = document.querySelectorAll('[class*="error"]');
 
-    // await fetch("http://localhost:5050/customer", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(newPerson),
-    // }).catch((error) => {
-    //   window.alert(error);
-    //   return;
-    // });
+    if (!document.querySelectorAll('[class*="error"]').length > 0) {
+      const matchedRecord = records.find(
+        (record) => record.email === info.email
+      );
+      console.log(matchedRecord);
+      const inputs = {
+        firstName: matchedRecord.firstName,
+        lastName: matchedRecord.lastName,
+        bday: matchedRecord.bday,
+        email: matchedRecord.email,
+        password: matchedRecord.password,
+      };
+      console.log(inputs);
+      setForm(inputs);
 
-    setForm({ firstName: "", lastName: "", bday: "", email: "", password: "" });
+      navigate("/home");
+    }
+
+    // setForm({ firstName: "", lastName: "", bday: "", email: "", password: "" });
     // navigate("/");
   }
-
+  console.log(form);
   // This following section will display the form that takes the input from the user.
   return (
     <div className="card">
@@ -114,11 +102,11 @@ export default function signup() {
                 className="form-control"
                 id="email"
                 placeholder="example@example.com"
-                value={form.email}
+                // value={form.email}
                 onChange={(e) => updateForm({ email: e.target.value })}
               />
             </div>
-            <span className="errInfo">test</span>
+            <span className="errInfo"></span>
           </div>
 
           <div className="formContent">
@@ -129,12 +117,12 @@ export default function signup() {
                 className="form-control"
                 id="password"
                 placeholder="password"
-                value={form.password}
+                // value={form.password}
                 onChange={(e) => updateForm({ password: e.target.value })}
               />
             </div>
+            <span className="errInfo"></span>
           </div>
-          <span className="errInfo">er</span>
 
           <div className="buttonContainer">
             <input type="submit" value="Sign Up" className="signupButton" />

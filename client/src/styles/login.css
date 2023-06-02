@@ -53,4 +53,5 @@
 }
 .error {
   border-color: var(--clr-primary-red);
+  color: var(--clr-primary-red-dark);
 }
