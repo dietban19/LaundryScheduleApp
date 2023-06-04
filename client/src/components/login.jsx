@@ -88,7 +88,7 @@ export default function login({ form, setForm }) {
     // navigate("/");
   }
   console.log(info);
-  // This following section will display the form that takes the input from the user.
+  // This fllowing section will display the form that takes the input from the user.
 
   return (
     <div className="welcome-page">
