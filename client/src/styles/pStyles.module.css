@@ -1,0 +1,57 @@
+.profileContent {
+  background-color: var(--clr-neutral-600);
+  flex: 1;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  padding: 2rem 1rem;
+}
+
+.profileContent__header {
+}
+
+.headerText {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.headerProfile {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.profilePic {
+  border: 1px solid red;
+  display: grid;
+  place-items: center;
+  /* padding: 1rem; */
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+.profileContent__dates {
+}
+.navHeader {
+  font-weight: 600;
+  font-size: 18px;
+}
+.dates__calendar {
+  text-align: center;
+  padding: 0.5rem;
+  font-weight: 500;
+}
+.edit {
+  display: flex;
+  justify-content: space-around;
+}
+
+.delete {
+  color: red;
+}
+
+.settingsNavContainer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
