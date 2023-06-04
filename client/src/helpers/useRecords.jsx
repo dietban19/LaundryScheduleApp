@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export function useRecords() {
   const [records, setRecords] = useState([]);
-
+  console.log("RECORDS", records);
   useEffect(() => {
     async function fetchRecords() {
       try {

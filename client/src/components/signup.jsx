@@ -109,98 +109,100 @@ export default function signup({ form, setForm }) {
 
   // This following section will display the form that takes the input from the user.
   return (
-    <div className="card">
-      <div className={styles.welcomeHeaderContainer}>
-        <div className={styles.headerContent}>
-          <button className={styles.arrow}>
-            <span></span>
-          </button>
-          <h2 className={styles.headerTitle}> Log in or sign up</h2>
+    <div className="welcome-page">
+      <div className="card">
+        <div className={styles.welcomeHeaderContainer}>
+          <div className={styles.headerContent}>
+            <button className={styles.arrow}>
+              <span></span>
+            </button>
+            <h2 className={styles.headerTitle}> Log in or sign up</h2>
+          </div>
+          <span className={styles.line}></span>
         </div>
-        <span className={styles.line}></span>
-      </div>
 
-      <div className="form">
-        <h1 className="signup">Sign Up</h1>
-        <form onSubmit={onSubmit}>
-          <div className="formContent">
-            <div className="form-group">
-              <label htmlFor="firstName">First Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="firstName"
-                placeholder="First Name"
-                value={form.firstName}
-                onChange={(e) => updateForm({ firstName: e.target.value })}
-              />
+        <div className="form">
+          <h1 className="signup">Sign Up</h1>
+          <form onSubmit={onSubmit}>
+            <div className="formContent">
+              <div className="form-group">
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="firstName"
+                  placeholder="First Name"
+                  value={form.firstName}
+                  onChange={(e) => updateForm({ firstName: e.target.value })}
+                />
+              </div>
+              <span className="errInfo"></span>
             </div>
-            <span className="errInfo"></span>
-          </div>
 
-          <div className="formContent">
-            <div className="form-group">
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                type="text"
-                className="form-control"
-                id="lastName"
-                placeholder="Last Name"
-                value={form.lastName}
-                onChange={(e) => updateForm({ lastName: e.target.value })}
-              />
+            <div className="formContent">
+              <div className="form-group">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="lastName"
+                  placeholder="Last Name"
+                  value={form.lastName}
+                  onChange={(e) => updateForm({ lastName: e.target.value })}
+                />
+              </div>
+              <span className="errInfo"></span>
             </div>
-            <span className="errInfo"></span>
-          </div>
 
-          <div className="formContent">
-            <div className="form-group">
-              <label htmlFor="bday">Birth Date</label>
-              <input
-                type="date"
-                className="form-control"
-                id="bday"
-                value={form.bday}
-                onChange={(e) => updateForm({ bday: e.target.value })}
-              />
+            <div className="formContent">
+              <div className="form-group">
+                <label htmlFor="bday">Birth Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="bday"
+                  value={form.bday}
+                  onChange={(e) => updateForm({ bday: e.target.value })}
+                />
+              </div>
+              <span className="errInfo"></span>
             </div>
-            <span className="errInfo"></span>
-          </div>
 
-          <div className="formContent">
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                className="form-control"
-                id="email"
-                placeholder="example@example.com"
-                value={form.email}
-                onChange={(e) => updateForm({ email: e.target.value })}
-              />
+            <div className="formContent">
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  placeholder="example@example.com"
+                  value={form.email}
+                  onChange={(e) => updateForm({ email: e.target.value })}
+                />
+              </div>
+              <span className="errInfo"></span>
             </div>
-            <span className="errInfo"></span>
-          </div>
 
-          <div className="formContent">
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="password"
-                value={form.password}
-                onChange={(e) => updateForm({ password: e.target.value })}
-              />
+            <div className="formContent">
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="password"
+                  value={form.password}
+                  onChange={(e) => updateForm({ password: e.target.value })}
+                />
+              </div>
+              <span className="errInfo"></span>
             </div>
-            <span className="errInfo"></span>
-          </div>
 
-          <div className="buttonContainer">
-            <input type="submit" value="Sign Up" className="signupButton" />
-          </div>
-        </form>
+            <div className="buttonContainer">
+              <input type="submit" value="Sign Up" className="signupButton" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

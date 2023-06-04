@@ -55,3 +55,35 @@
   border-color: var(--clr-primary-red);
   color: var(--clr-primary-red-dark);
 }
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.shake {
+  animation: shake 0.2s ease-out;
+}
+
+.welcome-page {
+  height: 100vh;
+  padding: 1rem 1rem;
+  display: grid;
+  place-items: center;
+}

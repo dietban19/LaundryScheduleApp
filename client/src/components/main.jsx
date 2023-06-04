@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function main({ form, setForm, handleLogOut }) {
-  console.log(form);
   return (
     <div>
       <div className={styles.main}>{form.firstName}</div>

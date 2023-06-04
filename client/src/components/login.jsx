@@ -17,13 +17,22 @@ export default function login({ form, setForm }) {
       return { ...prev, ...value };
     });
   }
+  //   function updateForm(value) {
+  //     return setForm((prev) => {
+  //       return { ...prev, ...value };
+  //     });
+  //   }
   const handleError = (n, message = "error", type = "add") => {
     const target = document.getElementById(`${n}`);
     // console.log(target.parentElement.nextElementSibling);
     var errorElement = target.parentElement.nextElementSibling;
     errorElement.innerHTML = message;
     target.parentElement.classList[type]("error");
-    target.previousElementSibling;
+    // target.previousElementSibling;
+    target.classList[type]("shake");
+    target.addEventListener("animationend", () =>
+      target.classList.remove("shake")
+    );
   };
   const handleCheckInput = (e) => {
     if (!e.email) {
@@ -53,6 +62,7 @@ export default function login({ form, setForm }) {
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
+
     handleCheckInput(info);
     let x = document.querySelectorAll('[class*="error"]');
 
@@ -60,7 +70,7 @@ export default function login({ form, setForm }) {
       const matchedRecord = records.find(
         (record) => record.email === info.email
       );
-      console.log(matchedRecord);
+
       const inputs = {
         firstName: matchedRecord.firstName,
         lastName: matchedRecord.lastName,
@@ -68,7 +78,7 @@ export default function login({ form, setForm }) {
         email: matchedRecord.email,
         password: matchedRecord.password,
       };
-      console.log(inputs);
+
       setForm(inputs);
 
       navigate("/home");
@@ -77,57 +87,59 @@ export default function login({ form, setForm }) {
     // setForm({ firstName: "", lastName: "", bday: "", email: "", password: "" });
     // navigate("/");
   }
-  console.log(form);
+  console.log(info);
   // This following section will display the form that takes the input from the user.
   return (
-    <div className="card">
-      <div className={styles.welcomeHeaderContainer}>
-        <div className={styles.headerContent}>
-          <button className={styles.arrow}>
-            <span></span>
-          </button>
-          <h2 className={styles.headerTitle}> Log in or sign up</h2>
+    <div className="welcome-page">
+      <div className="card">
+        <div className={styles.welcomeHeaderContainer}>
+          <div className={styles.headerContent}>
+            <button className={styles.arrow}>
+              <span></span>
+            </button>
+            <h2 className={styles.headerTitle}> Log in or sign up</h2>
+          </div>
+          <span className={styles.line}></span>
         </div>
-        <span className={styles.line}></span>
-      </div>
 
-      <div className="form">
-        <h1 className="signup">Log In</h1>
-        <form onSubmit={onSubmit}>
-          <div className="formContent">
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                className="form-control"
-                id="email"
-                placeholder="example@example.com"
-                // value={form.email}
-                onChange={(e) => updateForm({ email: e.target.value })}
-              />
+        <div className="form">
+          <h1 className="signup">Log In</h1>
+          <form onSubmit={onSubmit}>
+            <div className="formContent">
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  placeholder="example@example.com"
+                  // value={form.email}
+                  onChange={(e) => updateForm({ email: e.target.value })}
+                />
+              </div>
+              <span className="errInfo"></span>
             </div>
-            <span className="errInfo"></span>
-          </div>
 
-          <div className="formContent">
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="password"
-                // value={form.password}
-                onChange={(e) => updateForm({ password: e.target.value })}
-              />
+            <div className="formContent">
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="password"
+                  // value={form.password}
+                  onChange={(e) => updateForm({ password: e.target.value })}
+                />
+              </div>
+              <span className="errInfo"></span>
             </div>
-            <span className="errInfo"></span>
-          </div>
 
-          <div className="buttonContainer">
-            <input type="submit" value="Sign Up" className="signupButton" />
-          </div>
-        </form>
+            <div className="buttonContainer">
+              <input type="submit" value="Sign Up" className="signupButton" />
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

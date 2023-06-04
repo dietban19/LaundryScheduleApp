@@ -10,14 +10,15 @@ import Welcome from "./components/welcome";
 import Login from "./components/login";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import MainLayout from "./components/mainlayout.jsx";
 
 const App = () => {
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    bday: "",
-    email: "",
-    password: "",
+    firstName: "test",
+    lastName: "test",
+    bday: "2023-06-20",
+    email: "testt@gmail.com",
+    password: "test",
   });
   useEffect(() => {
     // Retrieve the form data from local storage when the component mounts
@@ -46,8 +47,9 @@ const App = () => {
       navigate("/welcome");
     }
   }
+
   return (
-    <main>
+    <>
       <Routes>
         <Route
           path="/welcome"
@@ -61,15 +63,22 @@ const App = () => {
           path="/login"
           element={<Login form={form} setForm={setForm} />}
         />
+        <Route path="*" element={<Navigate to="/welcome" />} />
+
+        {/* <Route path="/main" element={<MainLayout />} /> */}
+
         <Route
           path="/home"
           element={
-            <Main form={form} setForm={setForm} handleLogOut={handleLogOut} />
+            <MainLayout
+              form={form}
+              setForm={setForm}
+              handleLogOut={handleLogOut}
+            />
           }
         />
-        <Route path="*" element={<Navigate to="/welcome" />} />
       </Routes>
-    </main>
+    </>
   );
 };
 
