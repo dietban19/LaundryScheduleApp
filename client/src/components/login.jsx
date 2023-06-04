@@ -89,13 +89,19 @@ export default function login({ form, setForm }) {
   }
   console.log(info);
   // This following section will display the form that takes the input from the user.
+
   return (
     <div className="welcome-page">
       <div className="card">
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>
-            <button className={styles.arrow}>
-              <span></span>
+            <button
+              className={styles.arrow}
+              onClick={() => {
+                navigate("/welcome");
+              }}
+            >
+              <span>{"<"}</span>
             </button>
             <h2 className={styles.headerTitle}> Log in or sign up</h2>
           </div>

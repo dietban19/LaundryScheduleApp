@@ -48,11 +48,7 @@ body {
   -webkit-font-smoothing: antialiased;
 
   font-family: var(--ff-primary);
-  background: linear-gradient(
-    to bottom,
-    var(--clr-bgg-400),
-    var(--clr-bgg-450)
-  );
+
   background-attachment: fixed;
 }
 /*

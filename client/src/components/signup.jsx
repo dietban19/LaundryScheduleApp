@@ -113,8 +113,13 @@ export default function signup({ form, setForm }) {
       <div className="card">
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>
-            <button className={styles.arrow}>
-              <span></span>
+            <button
+              className={styles.arrow}
+              onClick={() => {
+                navigate("/welcome");
+              }}
+            >
+              <span>{"<"}</span>
             </button>
             <h2 className={styles.headerTitle}> Log in or sign up</h2>
           </div>
