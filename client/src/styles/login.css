@@ -86,4 +86,9 @@
   padding: 1rem 1rem;
   display: grid;
   place-items: center;
+  background: linear-gradient(
+    to bottom,
+    var(--clr-bgg-400),
+    var(--clr-bgg-450)
+  );
 }

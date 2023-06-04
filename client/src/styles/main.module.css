@@ -9,4 +9,9 @@
 .nav {
   position: absolute;
   bottom: 0;
+  background-color: white;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding: 1rem;
 }
