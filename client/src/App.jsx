@@ -81,7 +81,13 @@ const App = () => {
         <Route path="/main" element={<Main form={form} setForm={setForm} />} />
         <Route
           path="/profile"
-          element={<Profile form={form} setForm={setForm} />}
+          element={
+            <Profile
+              form={form}
+              setForm={setForm}
+              handleLogOut={handleLogOut}
+            />
+          }
         />
       </Routes>
     </>

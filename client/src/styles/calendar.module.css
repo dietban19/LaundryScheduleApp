@@ -1,0 +1,32 @@
+.calendarContainer {
+  background-color: red;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.headers {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.calendar {
+  border-collapse: collapse;
+  width: 100%;
+}
+.calendar__body {
+  text-align: center;
+  font-size: 18px;
+}
+
+.calendar__row {
+  background-color: green;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+}
+.calendar__day {
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+}

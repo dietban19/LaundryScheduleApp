@@ -4,7 +4,7 @@
 
 .mainPage {
   min-height: 100vh;
-  background-color: green;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,28 +12,52 @@
 }
 
 .mainContent {
-  margin: 1rem;
-  background-color: var(--clr-neutral-600);
-  border-radius: 12px;
+  /* margin: 1rem; */
+  /* background-color: var(--clr-neutral-600); */
+  /* border-radius: 12px; */
+  background-color: blue;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   flex: 1;
-  border: 1px solid red;
+  gap: 3rem;
 }
-.profileContent {
-  background-color: var(--clr-neutral-600);
-  flex: 1;
-}
-.nav {
-  /* position: fixed; */
 
-  /* bottom: 0;
-  left: 0; */
-  /* background-color: white; */
+.nav {
+  background-color: white;
   display: flex;
   width: 100%;
   justify-content: space-around;
   padding: 1rem;
   border-top: 1px solid var(--clr-neutral-700);
+
+  color: red;
+}
+.profile {
+  text-decoration: none;
+  color: red;
+}
+.nav img {
+  max-width: 20px;
+}
+
+.iconImage {
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 0.1rem;
+}
+
+.mainCalendar {
+  outline: 4px solid yellow;
+  flex: 1;
+  width: 95%;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  display: flex; /* Add this */
+}
+
+.mainHeader {
+  margin-top: 1rem;
 }

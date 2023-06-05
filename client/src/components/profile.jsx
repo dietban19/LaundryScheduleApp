@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "./navbar";
 import styles from "../styles/main.module.css";
 import pStyles from "../styles/pStyles.module.css";
-export default function profile({ form, setForm }) {
+export default function profile({ form, setForm, handleLogOut }) {
   return (
     <div className={styles.mainPage}>
       <div className={pStyles.profileContent}>
@@ -41,6 +41,7 @@ export default function profile({ form, setForm }) {
             </div>
           </nav>
         </div>
+        <button onClick={handleLogOut}>Logout</button>
       </div>
       <NavBar />
     </div>
