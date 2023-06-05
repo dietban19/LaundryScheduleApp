@@ -89,9 +89,13 @@ export default function login({ form, setForm }) {
   }
   console.log(info);
   // This fllowing section will display the form that takes the input from the user.
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
   return (
     <div className="welcome-page">
+      <p>Screen Width: {screenWidth}px</p>
+      <p>Screen Height: {screenHeight}px</p>
       <div className="card">
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>

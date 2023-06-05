@@ -106,10 +106,14 @@ export default function signup({ form, setForm }) {
     }
     // When a post request is sent to the create url, we'll add a new record to the database.
   }
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
   // This following section will display the form that takes the input from the user.
   return (
     <div className="welcome-page">
+      <p>Screen Width: {screenWidth}px</p>
+      <p>Screen Height: {screenHeight}px</p>
       <div className="card">
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>
