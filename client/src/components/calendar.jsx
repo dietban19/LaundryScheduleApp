@@ -1,6 +1,5 @@
 import React from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+
 import { useState } from "react";
 import dayjs from "dayjs";
 import styles from "../styles/calendar.module.css";

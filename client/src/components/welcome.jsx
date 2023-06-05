@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../styles/welcome.module.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function welcome({ form, setForm }) {
   const navigate = useNavigate();
@@ -8,9 +9,12 @@ export default function welcome({ form, setForm }) {
   const handleClick = (path) => {
     navigate(path);
   };
-
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   return (
     <div className="welcome-page">
+      <p>Screen Width: {screenWidth}px</p>
+      <p>Screen Height: {screenHeight}px</p>
       <div className={styles.card}>
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>

@@ -3,9 +3,7 @@ import styles from "../styles/main.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./navbar";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 import Calendar from "./calendar";
 function main({ form, setForm, handleLogOut }) {
   return (
