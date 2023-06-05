@@ -4,6 +4,14 @@
   margin: 1rem 2rem 2rem 1rem;
   gap: 0.875rem;
 }
+@media (max-width: 375px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 1rem;
+    gap: 0.875rem;
+  }
+}
 .signup {
 }
 
@@ -82,7 +90,7 @@
 }
 
 .welcome-page {
-  height: 100vh;
+  height: 100%;
   padding: 1rem 1rem;
   display: grid;
   place-items: center;

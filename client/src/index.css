@@ -20,6 +20,7 @@
   --fw-h2: 600;
   --fw-h1: 700;
 }
+
 *,
 *::before,
 *::after {
@@ -43,12 +44,7 @@ body {
   4. Add accessible line-height
   5. Improve text rendering
 */
-body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
 
-  font-family: var(--ff-primary);
-}
 /*
   6. Improve media defaults
 */
@@ -63,8 +59,8 @@ svg {
 /*
   7. Remove built-in form typography styles
 */
-input,
-button,
+/* input, */
+/* button, */
 textarea,
 select {
   font: inherit;
@@ -91,10 +87,17 @@ h6 {
   isolation: isolate;
 }
 
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+
+  font-family: var(--ff-primary);
+}
 .card {
-  position: relative;
-  width: 100%;
+  /* padding: 0; */
   background-color: white;
-  /* padding: 1rem 1rem; */
+  width: 90%;
+  max-width: 90%;
   border-radius: 0.75rem;
+  position: relative;
 }
