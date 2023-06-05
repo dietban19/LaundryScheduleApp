@@ -48,8 +48,6 @@ body {
   -webkit-font-smoothing: antialiased;
 
   font-family: var(--ff-primary);
-
-  background-attachment: fixed;
 }
 /*
   6. Improve media defaults

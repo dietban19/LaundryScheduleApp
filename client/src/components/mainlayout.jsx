@@ -5,7 +5,9 @@ import styles from "../styles/main.module.css";
 function mainLayout({ form, setForm }) {
   return (
     <div className={styles.mainPage}>
-      <Main form={form} setForm={setForm} />
+      <div className={styles.mainContent}>
+        <Main form={form} setForm={setForm} />
+      </div>
       <NavBar />
     </div>
   );

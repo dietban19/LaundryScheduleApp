@@ -5,6 +5,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 
 // We import all the components we need in our app
 import Main from "./components/main";
+import Profile from "./components/profile";
 import SignUp from "./components/signup";
 import Welcome from "./components/welcome";
 import Login from "./components/login";
@@ -71,6 +72,17 @@ const App = () => {
           path="/home"
           element={
             <MainLayout
+              form={form}
+              setForm={setForm}
+              handleLogOut={handleLogOut}
+            />
+          }
+        />
+        <Route path="/main" element={<Main form={form} setForm={setForm} />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile
               form={form}
               setForm={setForm}
               handleLogOut={handleLogOut}
