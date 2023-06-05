@@ -2,22 +2,22 @@
   display: flex;
   flex-direction: column;
   margin: 1rem 2rem 2rem 1rem;
-  gap: 14px;
+  gap: 0.875rem;
 }
 .signup {
 }
 
 .form-group {
-  padding: 8px;
-  border-radius: 8px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
   border: 1px solid var(--clr-neutral-700);
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
 }
 .formContent {
-  margin-bottom: 4px;
+  margin-bottom: 0.25rem;
 }
 
 .buttonContainer {
@@ -25,13 +25,13 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
-  border-radius: 12px;
+  margin-bottom: 0.625rem;
+  border-radius: 0.75rem;
 }
 .signupButton {
   background-color: var(--clr-pBlue-700);
   border: none;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   color: var(--clr-neutral-500);
   font-weight: var(--fw-h2);
   width: 100%;
