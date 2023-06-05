@@ -68,7 +68,7 @@ const App = () => {
 
         {/* <Route path="/main" element={<MainLayout />} /> */}
 
-        <Route
+        {/* <Route
           path="/home"
           element={
             <MainLayout
@@ -77,8 +77,8 @@ const App = () => {
               handleLogOut={handleLogOut}
             />
           }
-        />
-        <Route path="/main" element={<Main form={form} setForm={setForm} />} />
+        /> */}
+        <Route path="/home" element={<Main form={form} setForm={setForm} />} />
         <Route
           path="/profile"
           element={
