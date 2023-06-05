@@ -15,11 +15,16 @@ import MainLayout from "./components/mainlayout.jsx";
 
 const App = () => {
   const [form, setForm] = useState({
-    firstName: "test",
-    lastName: "test",
-    bday: "2023-06-20",
-    email: "testt@gmail.com",
-    password: "test",
+    // firstName: "test",
+    // lastName: "test",
+    // bday: "2023-06-20",
+    // email: "testt@gmail.com",
+    // password: "test",
+    firstName: "",
+    lastName: "",
+    bday: "",
+    email: "",
+    password: "",
   });
   useEffect(() => {
     // Retrieve the form data from local storage when the component mounts

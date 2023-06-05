@@ -8,7 +8,7 @@ export default function navbar() {
   return (
     <div>
       <div className={styles.nav}>
-        <Link to="/main">
+        <Link to="/home">
           <FaHome className={styles.iconImage} size={24} />
         </Link>
         <Link to="/profile">

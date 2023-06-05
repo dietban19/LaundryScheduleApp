@@ -2,13 +2,19 @@ import React from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useState } from "react";
-
+import dayjs from "dayjs";
 import styles from "../styles/calendar.module.css";
 export default function calendar() {
-  const [date, setDate] = useState(new Date());
-
+  const [chosenDate, setChosenDate] = useState(new Date());
+  const today = new Date();
+  const currDate = {
+    day: dayjs(today).format("DD"),
+    month: dayjs(today).format("MMMM"),
+    year: dayjs(today).format("YYYY"),
+  };
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
+
   const daysInMonth = new Date(
     currentDate.getFullYear(),
     currentMonth + 1,
@@ -19,8 +25,7 @@ export default function calendar() {
     currentMonth,
     1
   ).getDay();
-
-  const today = dayjs();
+  console.log(currDate);
   const renderCalendarGrid = () => {
     const calendarGrid = [];
     let dayCount = 1;
@@ -58,8 +63,11 @@ export default function calendar() {
   return (
     <div className={styles.calendarContainer}>
       <div className={styles.headers}>
-        <h1 className={styles.headers__text}>Today Is</h1>
-        <div className={styles.headers__date}></div>
+        <h2 className={styles.headers__text}>Today Is</h2>
+        <div className={styles.headers__date}>
+          <div className={styles.headers__date__day}>{currDate.day}</div>
+          <div className={styles.headers__date__month}>{currDate.month}</div>
+        </div>
       </div>
       <table className={styles.calendar}>
         <thead>
