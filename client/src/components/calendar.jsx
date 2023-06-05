@@ -2,15 +2,10 @@ import React from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useState } from "react";
-import dayjs from "dayjs";
+
 import styles from "../styles/calendar.module.css";
 export default function calendar() {
   const [date, setDate] = useState(new Date());
-  const [myDate, setMyDate] = useState({
-    day: dayjs(date).format("dddd"),
-    month: dayjs(date).format("MMMM"),
-    year: dayjs(date).format("YYYY"),
-  });
 
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
@@ -62,7 +57,10 @@ export default function calendar() {
 
   return (
     <div className={styles.calendarContainer}>
-      <div className={styles.headers}>Today is</div>
+      <div className={styles.headers}>
+        <h1 className={styles.headers__text}>Today Is</h1>
+        <div className={styles.headers__date}></div>
+      </div>
       <table className={styles.calendar}>
         <thead>
           <tr>
