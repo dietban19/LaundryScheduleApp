@@ -3,12 +3,26 @@ import styles from "../styles/main.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./navbar";
+import { useRecords } from "../helpers/useRecords";
 
 import Calendar from "./calendar";
 function main({ form, setForm, handleLogOut }) {
+  const records = useRecords();
+  function handleClick() {
+    records.fetchRecords();
+    console.log("pdate");
+  }
+  function handleTest() {
+    console.log(records.records);
+  }
+  //   useEffect(() => {
+  //     records.fetchRecords();
+  //   });
   return (
     <div className={styles.mainPage}>
       <div className={styles.mainContent}>
+        <button onClick={handleClick}>Press here</button>
+        <button onClick={handleTest}>Test</button>
         {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker />
         </LocalizationProvider> */}

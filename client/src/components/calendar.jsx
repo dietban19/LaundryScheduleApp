@@ -4,6 +4,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import styles from "../styles/calendar.module.css";
 export default function calendar() {
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [chosenDate, setChosenDate] = useState(new Date());
   const today = new Date();
   const currDate = {
@@ -11,6 +12,7 @@ export default function calendar() {
     month: dayjs(today).format("MMMM"),
     year: dayjs(today).format("YYYY"),
   };
+
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
 
@@ -24,7 +26,7 @@ export default function calendar() {
     currentMonth,
     1
   ).getDay();
-  console.log(currDate);
+
   const renderCalendarGrid = () => {
     const calendarGrid = [];
     let dayCount = 1;
@@ -35,13 +37,21 @@ export default function calendar() {
       for (let col = 0; col < 7; col++) {
         if (row === 0 && col < firstDayOfWeek) {
           calendarRow.push(
-            <td className={styles.calenda__day} key={`${row}-${col}`} />
+            <td
+              className={styles.calendar__day}
+              key={`${row}-${col}`}
+              onClick={() => handleDayClick(dayCount)}
+            />
           );
         } else if (dayCount > daysInMonth) {
           break;
         } else {
           calendarRow.push(
-            <td className={styles.calendar__day} key={`${row}-${col}`}>
+            <td
+              className={styles.calendar__day}
+              key={`${row}-${col}`}
+              onClick={() => handleDayClick(dayCount)}
+            >
               {dayCount}
             </td>
           );
@@ -62,7 +72,7 @@ export default function calendar() {
   return (
     <div className={styles.calendarContainer}>
       <div className={styles.headers}>
-        <h2 className={styles.headers__text}>Today Is</h2>
+        <h2 className={styles.headers__text}>Select Date</h2>
         <div className={styles.headers__date}>
           <div className={styles.headers__date__day}>{currDate.day}</div>
           <div className={styles.headers__date__month}>{currDate.month}</div>

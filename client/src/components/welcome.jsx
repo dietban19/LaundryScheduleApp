@@ -13,8 +13,6 @@ export default function welcome({ form, setForm }) {
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   return (
     <div className="welcome-page">
-      <p>Screen Width: {screenWidth}px</p>
-      <p>Screen Height: {screenHeight}px</p>
       <div className={styles.card}>
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>

@@ -10,16 +10,22 @@ import SignUp from "./components/signup";
 import Welcome from "./components/welcome";
 import Login from "./components/login";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import MainLayout from "./components/mainlayout.jsx";
-
+import { v4 as uuidv4 } from "uuid";
+import { useRecords } from "./helpers/useRecords";
+/* add unique id for each device
+when user logsin, the uniqueID will be set to the profile. 
+THere can be multiple devices logged in to profile. 
+once the app is refreshed, the app will take the id of the device
+see if logged in = true. if true, the app will take the profile details
+devices:{deviceID:{id:123, loggedIn:true},{id:432, loggedIn:false} }
+*/
 const App = () => {
+  const storedDeviceID = localStorage.getItem("deviceID");
+  const myRecord = useRecords();
   const [form, setForm] = useState({
-    // firstName: "test",
-    // lastName: "test",
-    // bday: "2023-06-20",
-    // email: "testt@gmail.com",
-    // password: "test",
+    devices: { deviceID: { id: storedDeviceID || uuidv4(), loggedIn: false } },
     firstName: "",
     lastName: "",
     bday: "",
@@ -27,33 +33,61 @@ const App = () => {
     password: "",
   });
   useEffect(() => {
-    // Retrieve the form data from local storage when the component mounts
-    const storedForm = JSON.parse(localStorage.getItem("form"));
-    if (storedForm) {
-      setForm(storedForm);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Save the form data to local storage whenever it changes
-    localStorage.setItem("form", JSON.stringify(form));
-  }, [form]);
-
+    localStorage.setItem("deviceID", form.devices.deviceID.id);
+  }, [form.devices.deviceID.id]);
+  const params = useParams();
   const navigate = useNavigate();
+  const thisRecord = useRecords();
+  const matchingRecord = myRecord.records.find(
+    (record) =>
+      record.devices.deviceID.id === storedDeviceID &&
+      record.email === form.email
+  );
+  const [newstuff, setNewStuff] = useState({
+    devices: { deviceID: { id: storedDeviceID || uuidv4(), loggedIn: true } },
+    firstName: "",
+    lastName: "",
+    bday: "",
+    email: "",
+    password: "",
+  });
+  async function toggleLog(e) {
+    // setNewStuff(e);
+    // console.log("NEW STUFF", newstuff);
+
+    await fetch(`http://localhost:5050/customer/${matchingRecord._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(e),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+  console.log("before", myRecord.records);
   function handleLogOut() {
     var confirmLogout = window.confirm("Are you sure you want to log out?");
-    if (confirmLogout) {
-      setForm({
-        firstName: "",
-        lastName: "",
-        bday: "",
-        email: "",
-        password: "",
-      });
-      navigate("/welcome");
+    const getRecords = myRecord.records;
+    // console.log(getRecords);
+    // Find the record that matches the storedDeviceID
+
+    if (confirmLogout && matchingRecord) {
+      // Update the matching record to set loggedIn to false
+
+      matchingRecord.devices.deviceID.loggedIn = false;
+      // console.log("AFTER", matchingRecord);
+      toggleLog(matchingRecord);
+      handleClick();
+      console.log("after", myRecord.records);
     }
   }
 
+  function handleClick() {
+    console.log("called CLICK");
+    myRecord.fetchRecords();
+  }
+  function handleTest() {
+    console.log("after", myRecord.records);
+  }
   return (
     <>
       <Routes>
@@ -63,11 +97,20 @@ const App = () => {
         />
         <Route
           path="/signup"
-          element={<SignUp form={form} setForm={setForm} />}
+          element={
+            <SignUp form={form} setForm={setForm} handleClick={handleClick} />
+          }
         />
         <Route
           path="/login"
-          element={<Login form={form} setForm={setForm} />}
+          element={
+            <Login
+              form={form}
+              setForm={setForm}
+              storedDeviceID={storedDeviceID}
+              // setStoredDeviceID={setStoredDeviceID}
+            />
+          }
         />
         <Route path="*" element={<Navigate to="/welcome" />} />
 

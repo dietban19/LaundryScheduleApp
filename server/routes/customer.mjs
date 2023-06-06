@@ -24,6 +24,7 @@ router.get("/:id", async (req, res) => {
 // This section will help you create a new customer.
 router.post("/", async (req, res) => {
   let newDocument = {
+    devices: req.body.devices,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     bday: req.body.bday,
@@ -40,6 +41,7 @@ router.patch("/:id", async (req, res) => {
   const query = { _id: new ObjectId(req.params.id) };
   const updates = {
     $set: {
+      devices: req.body.devices,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       bday: req.body.bday,

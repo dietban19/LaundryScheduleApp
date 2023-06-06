@@ -4,7 +4,15 @@ import "../styles/login.css";
 import styles from "../styles/welcome.module.css";
 import { useRecords } from "../helpers/useRecords";
 
-export default function login({ form, setForm }) {
+export default function login({
+  form,
+  setForm,
+  storedDeviceId,
+  setStoredDeviceId,
+}) {
+  //   useEffect(() => {
+  //     localStorage.setItem("deviceID", form.devices.deviceID.id);
+  //   }, [form.devices.deviceID.id]);
   const [info, setInfo] = useState({
     email: "",
     password: "",
@@ -94,8 +102,6 @@ export default function login({ form, setForm }) {
 
   return (
     <div className="welcome-page">
-      <p>Screen Width: {screenWidth}px</p>
-      <p>Screen Height: {screenHeight}px</p>
       <div className="card">
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>

@@ -2,7 +2,10 @@ import React from "react";
 import NavBar from "./navbar";
 import styles from "../styles/main.module.css";
 import pStyles from "../styles/pStyles.module.css";
+import { useRecords } from "../helpers/useRecords";
 export default function profile({ form, setForm, handleLogOut }) {
+  //   const myRecord = useRecords();
+  //   console.log("THIS THIS THIS THSIDHFOISDF", myRecord.records);
   return (
     <div className={styles.mainPage}>
       <div className={pStyles.profileContent}>
@@ -33,7 +36,9 @@ export default function profile({ form, setForm, handleLogOut }) {
           <nav>
             <div className={pStyles.settingsNavContainer}>
               <div className={pStyles.imageHere}>image</div>
-              <div className={pStyles.settingsText}>Personal Info</div>
+              <div className={pStyles.settingsText}>
+                Personal Info{form.email}
+              </div>
             </div>
             <div className={pStyles.settingsNavContainer}>
               <div className={pStyles.imageHere}>image</div>

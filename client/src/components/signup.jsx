@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import "../styles/login.css";
@@ -7,8 +7,11 @@ import { useRecords } from "../helpers/useRecords";
 
 import { useLocation } from "react-router-dom";
 
-export default function signup({ form, setForm }) {
-  const records = useRecords();
+export default function signup({ form, setForm, handleClick }) {
+  const myRecord = useRecords();
+  // useEffect(() => {
+  //   console.log("Updated records:", myRecord.records);
+  // }, [myRecord.records]);
   // const history = useHistory();
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,6 +25,7 @@ export default function signup({ form, setForm }) {
       return { ...prev, ...value };
     });
   }
+
   const handleError = (n, message = "error", type = "add") => {
     const target = document.getElementById(`${n}`);
 
@@ -30,17 +34,10 @@ export default function signup({ form, setForm }) {
     var errorElement = target.parentElement.nextElementSibling;
     errorElement.innerHTML = message;
     target.parentElement.classList[type]("error");
-    target.previousElementSibling;
-    // target.nextElementSibling.innerHTML = message;
-    // target.classList[type]("error");
-    // target.classList[type]("shake");
-    // target.addEventListener("animationend", () =>
-    //   t.parentElement.classList.remove("shake")
-    // );
-    // target.parentElement.classList[type]("error");
-    // target.parentElement.classList[type]("shake");
-    // target.parentElement.addEventListener("animationend", () =>
-    //   target.parentElement.classList.remove("shake")
+    target.classList[type]("shake");
+    target.addEventListener("animationend", () =>
+      target.classList.remove("shake")
+    );
   };
   const handleCheckInput = (e) => {
     if (!e.firstName) {
@@ -72,48 +69,63 @@ export default function signup({ form, setForm }) {
       handleError("password", " ", "remove");
     }
 
-    if (records.some((record) => record.email === e.email)) {
+    if (myRecord.records.some((record) => record.email === e.email)) {
       handleError("email", "Email exists");
     } else {
       handleError("email", " ", "remove");
     }
   };
-
+  // useEffect(() => {
+  //   localStorage.setItem("deviceID", form.devices.deviceID.id);
+  // }, [form.devices.deviceID.id]);
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
+
     handleCheckInput(form);
 
-    console.log(records);
+    // console.log(records);
     let x = document.querySelectorAll('[class*="error"]');
 
     if (!document.querySelectorAll('[class*="error"]').length > 0) {
-      console.log("good");
-      const newPerson = { ...form };
-
-      await fetch("http://localhost:5050/customer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const updatedForm = {
+        ...form,
+        devices: {
+          ...form.devices,
+          deviceID: {
+            ...form.devices.deviceID,
+            loggedIn: true,
+          },
         },
-        body: JSON.stringify(newPerson),
-      }).catch((error) => {
-        window.alert(error);
-        return;
+      };
+
+      setForm(updatedForm);
+
+      const newPerson = { ...updatedForm };
+      console.log("NEWPERSON", newPerson);
+      console.log("THE THE THE THE THE THE NEW", newPerson);
+
+      await myRecord.submitForm(newPerson, () => {
+        myRecord.fetchRecords(); // Trigger data refresh after navigation
       });
+      handleClick();
       navigate("/home");
-      // return handleCalculateAge(userInputs);
     }
-    // When a post request is sent to the create url, we'll add a new record to the database.
+    // myRecord.fetchRecords(); // Trigger data refresh after navigation
+    // // console.log("FROM LOGIN", myRecord.records);
+
+    // navigate("/home");
+
+    // return handleCalculateAge(userInputs);
   }
+  // When a post request is sent to the create url, we'll add a new record to the database.
+
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
 
   // This following section will display the form that takes the input from the user.
   return (
     <div className="welcome-page">
-      <p>Screen Width: {screenWidth}px</p>
-      <p>Screen Height: {screenHeight}px</p>
       <div className="card">
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>
@@ -208,7 +220,12 @@ export default function signup({ form, setForm }) {
             </div>
 
             <div className="buttonContainer">
-              <input type="submit" value="Sign Up" className="signupButton" />
+              <input
+                type="submit"
+                value="Sign Up"
+                className="signupButton"
+                // onClick={handleClick}
+              />
             </div>
           </form>
         </div>
