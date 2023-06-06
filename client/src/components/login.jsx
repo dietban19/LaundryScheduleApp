@@ -7,7 +7,7 @@ import { useRecords } from "../helpers/useRecords";
 export default function login({
   form,
   setForm,
-  storedDeviceId,
+  storedDeviceID,
   setStoredDeviceId,
 }) {
   //   useEffect(() => {
@@ -55,10 +55,11 @@ export default function login({
     } else {
       handleError("password", " ", "remove");
     }
-    if (records.some((record) => record.email === e.email)) {
-      const matchedRecord = records.find((record) => record.email === e.email);
+    if (records.records.some((record) => record.email === e.email)) {
+      const matchedRecord = records.records.find(
+        (record) => record.email === e.email
+      );
       const matchedPassword = matchedRecord.password;
-      console.log(matchedPassword);
       if (matchedPassword !== e.password) {
         handleError("password", "Incorrect Password");
       }
@@ -66,7 +67,13 @@ export default function login({
       handleError("email", "Email Does Not exist");
     }
   };
-
+  //   console.log(storedDeviceID);
+  //   const i = records.records.find(
+  //     (record) =>
+  //       record.devices.deviceID.id === storedDeviceID &&
+  //       record.email === info.email
+  //   );
+  //   console.log(i);
   // This function will handle the submission.
   async function onSubmit(e) {
     e.preventDefault();
@@ -75,17 +82,30 @@ export default function login({
     let x = document.querySelectorAll('[class*="error"]');
 
     if (!document.querySelectorAll('[class*="error"]').length > 0) {
-      const matchedRecord = records.find(
-        (record) => record.email === info.email
+      const matchedRecord = records.records.find(
+        (record) =>
+          record.devices.deviceID.id === storedDeviceID &&
+          record.email === info.email
       );
-
+      //   console.log("HErE", form);
+      console.log("found", matchedRecord);
+      matchedRecord.devices.deviceID.loggedIn = true;
+      console.log("1", matchedRecord);
       const inputs = {
+        devices: matchedRecord.devices,
         firstName: matchedRecord.firstName,
         lastName: matchedRecord.lastName,
         bday: matchedRecord.bday,
         email: matchedRecord.email,
         password: matchedRecord.password,
       };
+      await fetch(`http://localhost:5050/customer/${matchedRecord._id}`, {
+        method: "PATCH",
+        body: JSON.stringify(matchedRecord),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       setForm(inputs);
 
@@ -95,7 +115,7 @@ export default function login({
     // setForm({ firstName: "", lastName: "", bday: "", email: "", password: "" });
     // navigate("/");
   }
-  console.log(info);
+  //   console.log(info);
   // This fllowing section will display the form that takes the input from the user.
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);

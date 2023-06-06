@@ -5,6 +5,7 @@ export function useRecords() {
   // console.log("RECORDS", records);
 
   async function fetchRecords() {
+    // console.log("FETCHING");
     try {
       const response = await fetch("http://localhost:5050/customer/");
 
@@ -13,13 +14,15 @@ export function useRecords() {
       }
 
       const data = await response.json();
+      // console.log("DATA!", [...data]);
       setRecords([...data]);
     } catch (error) {
       window.alert(error.message);
     }
   }
-
+  // console.log("RECORDS", records);
   useEffect(() => {
+    // console.log("FETCHING STUFF");
     fetchRecords();
   }, []);
 

@@ -7,7 +7,7 @@ import { useRecords } from "../helpers/useRecords";
 
 import { useLocation } from "react-router-dom";
 
-export default function signup({ form, setForm, handleClick }) {
+export default function signup({ form, setForm, handleClick, storedDeviceID }) {
   const myRecord = useRecords();
   // useEffect(() => {
   //   console.log("Updated records:", myRecord.records);
@@ -94,11 +94,12 @@ export default function signup({ form, setForm, handleClick }) {
           ...form.devices,
           deviceID: {
             ...form.devices.deviceID,
+            id: storedDeviceID,
             loggedIn: true,
           },
         },
       };
-
+      console.log("IPADATE: " + updatedForm);
       setForm(updatedForm);
 
       const newPerson = { ...updatedForm };

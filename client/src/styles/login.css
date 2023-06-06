@@ -37,6 +37,7 @@
   border-radius: 0.75rem;
 }
 .signupButton {
+  cursor: pointer;
   background-color: var(--clr-pBlue-700);
   border: none;
   border-radius: 0.5rem;

@@ -18,6 +18,11 @@ function main({ form, setForm, handleLogOut }) {
   //   useEffect(() => {
   //     records.fetchRecords();
   //   });
+  useEffect(() => {
+    console.log("calling");
+    records.fetchRecords();
+    console.log("123", records.records);
+  }, []);
   return (
     <div className={styles.mainPage}>
       <div className={styles.mainContent}>

@@ -21,73 +21,72 @@ once the app is refreshed, the app will take the id of the device
 see if logged in = true. if true, the app will take the profile details
 devices:{deviceID:{id:123, loggedIn:true},{id:432, loggedIn:false} }
 */
+
 const App = () => {
-  const storedDeviceID = localStorage.getItem("deviceID");
   const myRecord = useRecords();
+  useEffect(() => {
+    myRecord.fetchRecords();
+  }, []);
+  const getDeviceId = () => {
+    let deviceId = localStorage.getItem("deviceId");
+    if (!deviceId) {
+      deviceId = uuidv4();
+      localStorage.setItem("deviceId", deviceId);
+    }
+    return deviceId;
+  };
+  const storedDeviceID = getDeviceId();
+
   const [form, setForm] = useState({
-    devices: { deviceID: { id: storedDeviceID || uuidv4(), loggedIn: false } },
+    devices: { deviceID: { id: "", loggedIn: false } },
     firstName: "",
     lastName: "",
     bday: "",
     email: "",
     password: "",
   });
-  useEffect(() => {
-    localStorage.setItem("deviceID", form.devices.deviceID.id);
-  }, [form.devices.deviceID.id]);
+
   const params = useParams();
   const navigate = useNavigate();
   const thisRecord = useRecords();
-  const matchingRecord = myRecord.records.find(
+
+  const myData = myRecord.records.find(
     (record) =>
       record.devices.deviceID.id === storedDeviceID &&
-      record.email === form.email
+      record.devices.deviceID.loggedIn === true
   );
-  const [newstuff, setNewStuff] = useState({
-    devices: { deviceID: { id: storedDeviceID || uuidv4(), loggedIn: true } },
-    firstName: "",
-    lastName: "",
-    bday: "",
-    email: "",
-    password: "",
-  });
-  async function toggleLog(e) {
-    // setNewStuff(e);
-    // console.log("NEW STUFF", newstuff);
 
-    await fetch(`http://localhost:5050/customer/${matchingRecord._id}`, {
-      method: "PATCH",
-      body: JSON.stringify(e),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
-  console.log("before", myRecord.records);
-  function handleLogOut() {
-    var confirmLogout = window.confirm("Are you sure you want to log out?");
-    const getRecords = myRecord.records;
-    // console.log(getRecords);
-    // Find the record that matches the storedDeviceID
-
-    if (confirmLogout && matchingRecord) {
-      // Update the matching record to set loggedIn to false
-
-      matchingRecord.devices.deviceID.loggedIn = false;
-      // console.log("AFTER", matchingRecord);
-      toggleLog(matchingRecord);
-      handleClick();
-      console.log("after", myRecord.records);
+  useEffect(() => {
+    if (
+      (!form ||
+        !form.firstName ||
+        !form.lastName ||
+        !form.bday ||
+        !form.email ||
+        !form.password) &&
+      myData
+    ) {
+      const isLoggedIn = myData.devices.deviceID.loggedIn;
+      console.log("refreshed".isLoggedIn);
+      if (isLoggedIn) {
+        setForm(myData);
+      }
+    } else {
     }
-  }
+  }, [myData]);
 
   function handleClick() {
-    console.log("called CLICK");
     myRecord.fetchRecords();
+    console.log("NEW RECORD IS ", myRecord.records);
   }
   function handleTest() {
     console.log("after", myRecord.records);
   }
+
+  function ttest() {
+    console.log("");
+  }
+
   return (
     <>
       <Routes>
@@ -98,7 +97,12 @@ const App = () => {
         <Route
           path="/signup"
           element={
-            <SignUp form={form} setForm={setForm} handleClick={handleClick} />
+            <SignUp
+              form={form}
+              setForm={setForm}
+              handleClick={handleClick}
+              storedDeviceID={storedDeviceID}
+            />
           }
         />
         <Route
@@ -108,24 +112,11 @@ const App = () => {
               form={form}
               setForm={setForm}
               storedDeviceID={storedDeviceID}
-              // setStoredDeviceID={setStoredDeviceID}
             />
           }
         />
         <Route path="*" element={<Navigate to="/welcome" />} />
 
-        {/* <Route path="/main" element={<MainLayout />} /> */}
-
-        {/* <Route
-          path="/home"
-          element={
-            <MainLayout
-              form={form}
-              setForm={setForm}
-              handleLogOut={handleLogOut}
-            />
-          }
-        /> */}
         <Route path="/home" element={<Main form={form} setForm={setForm} />} />
         <Route
           path="/profile"
@@ -133,7 +124,8 @@ const App = () => {
             <Profile
               form={form}
               setForm={setForm}
-              handleLogOut={handleLogOut}
+              storedDeviceID={storedDeviceID}
+              handleClick={handleClick}
             />
           }
         />
