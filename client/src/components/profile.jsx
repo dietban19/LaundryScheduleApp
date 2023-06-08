@@ -55,7 +55,7 @@ export default function profile({
     }
     console.log("CLEARING");
     setForm({
-      devices: { deviceID: { id: "" || uuidv4(), loggedIn: true } },
+      devices: { deviceID: { id: "", loggedIn: true } },
       firstName: "",
       lastName: "",
       bday: "",

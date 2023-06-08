@@ -8,26 +8,26 @@ import { useRecords } from "../helpers/useRecords";
 import Calendar from "./calendar";
 function main({ form, setForm, handleLogOut }) {
   const records = useRecords();
-  function handleClick() {
-    records.fetchRecords();
-    console.log("pdate");
-  }
+  //   function handleClick() {
+  //     records.fetchRecords();
+  //     console.log("pdate");
+  //   }
   function handleTest() {
     console.log(records.records);
   }
   //   useEffect(() => {
   //     records.fetchRecords();
   //   });
-  useEffect(() => {
-    console.log("calling");
-    records.fetchRecords();
-    console.log("123", records.records);
-  }, []);
+  //   useEffect(() => {
+  //     console.log("calling");
+  //     records.fetchRecords();
+  //     console.log("123", records.records);
+  //   }, []);
   return (
     <div className={styles.mainPage}>
       <div className={styles.mainContent}>
-        <button onClick={handleClick}>Press here</button>
-        <button onClick={handleTest}>Test</button>
+        {/* <button onClick={handleClick}>Press here</button>
+        <button onClick={handleTest}>Test</button> */}
         {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker />
         </LocalizationProvider> */}

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../styles/welcome.module.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function welcome({ form, setForm }) {
   const navigate = useNavigate();
@@ -9,6 +9,12 @@ export default function welcome({ form, setForm }) {
   const handleClick = (path) => {
     navigate(path);
   };
+  useEffect(() => {
+    if (form.email && form.password) {
+      navigate("/home");
+      console.log(form);
+    }
+  }, [form]);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   return (

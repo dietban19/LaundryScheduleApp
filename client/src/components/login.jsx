@@ -87,6 +87,16 @@ export default function login({
           record.devices.deviceID.id === storedDeviceID &&
           record.email === info.email
       );
+      console.log("before match: " + form);
+      setForm({
+        devices: { deviceID: { id: "", loggedIn: false } },
+        firstName: "",
+        lastName: "",
+        bday: "",
+        email: "",
+        password: "",
+      });
+      console.log("AFTERs", form);
       //   console.log("HErE", form);
       console.log("found", matchedRecord);
       matchedRecord.devices.deviceID.loggedIn = true;

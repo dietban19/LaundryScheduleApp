@@ -76,7 +76,7 @@ const App = () => {
   }, [myData]);
 
   function handleClick() {
-    myRecord.fetchRecords();
+    // myRecord.fetchRecords();
     console.log("NEW RECORD IS ", myRecord.records);
   }
   function handleTest() {
