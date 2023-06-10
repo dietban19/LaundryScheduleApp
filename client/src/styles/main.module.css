@@ -61,3 +61,40 @@
 .mainHeader {
   margin-top: 1rem;
 }
+
+.loading {
+  /* display: grid;
+  place-items: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffffb8;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  border: 1px solid red;
+  /* top: 0;
+  left: 0; */
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.loading:after {
+  content: " ";
+  width: 75px;
+  height: 75px;
+
+  border: 15px solid #dddddd;
+  border-top-color: rgb(94, 232, 60);
+  border-radius: 50%;
+  animation: loading 0.75s infinite linear;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0turn);
+  }
+  from {
+    transform: rotate(1turn);
+  }
+}

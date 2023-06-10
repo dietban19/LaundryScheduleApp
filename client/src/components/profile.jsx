@@ -68,6 +68,7 @@ export default function profile({
 
   return (
     <div className={styles.mainPage}>
+      {!form.firstName ? <div className={styles.loading}></div> : null}
       <div className={pStyles.profileContent}>
         <div className={pStyles.profileContent__header}>
           <div className={pStyles.headerText}>Profile</div>
@@ -98,9 +99,7 @@ export default function profile({
           <nav>
             <div className={pStyles.settingsNavContainer}>
               <div className={pStyles.imageHere}>image</div>
-              <div className={pStyles.settingsText}>
-                Personal Info{form.email}
-              </div>
+              <div className={pStyles.settingsText}>Personal Info</div>
             </div>
             <div className={pStyles.settingsNavContainer}>
               <div className={pStyles.imageHere}>image</div>
@@ -108,7 +107,9 @@ export default function profile({
             </div>
           </nav>
         </div>
-        <button onClick={handleLogOut}>Logout</button>
+        <button className={pStyles.button} onClick={handleLogOut}>
+          Logout
+        </button>
       </div>
       <NavBar />
     </div>

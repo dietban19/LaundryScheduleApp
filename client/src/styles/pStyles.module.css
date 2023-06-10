@@ -1,5 +1,5 @@
 .profileContent {
-  background-color: var(--clr-neutral-600);
+  background-color: white;
   flex: 1;
   display: flex;
   gap: 2rem;
@@ -54,4 +54,14 @@
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  background-color: var(--clr-primary-red-dark);
+  color: var(--clr-neutral-600);
+  padding: 0.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
 }

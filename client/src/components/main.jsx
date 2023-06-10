@@ -15,16 +15,21 @@ function main({ form, setForm, handleLogOut }) {
   function handleTest() {
     console.log(records.records);
   }
-  //   useEffect(() => {
-  //     records.fetchRecords();
-  //   });
+  useEffect(() => {
+    //   records.fetchRecords();
+    if (form) {
+      console.log("YESYESYES");
+    }
+  });
   //   useEffect(() => {
   //     console.log("calling");
   //     records.fetchRecords();
   //     console.log("123", records.records);
   //   }, []);
+
   return (
     <div className={styles.mainPage}>
+      {!form.firstName ? <div className={styles.loading}></div> : null}
       <div className={styles.mainContent}>
         {/* <button onClick={handleClick}>Press here</button>
         <button onClick={handleTest}>Test</button> */}

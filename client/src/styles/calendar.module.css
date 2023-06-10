@@ -3,7 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 }
+
 .headers {
   padding: 1rem;
   display: flex;
