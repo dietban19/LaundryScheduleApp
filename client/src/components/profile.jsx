@@ -20,17 +20,6 @@ export default function profile({
       record.email === form.email
   );
 
-  //   async function toggleLog(e) {
-  //     await fetch(`http://localhost:5050/customer/${matchingRecord._id}`, {
-  //       method: "PATCH",
-  //       body: JSON.stringify(e),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //   }
-
-  // console.log("before", myRecord.records);
   function handleLogOut() {
     const matchingRecord = myRecord.records.find(
       (record) =>

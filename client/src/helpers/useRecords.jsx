@@ -7,7 +7,9 @@ export function useRecords() {
   async function fetchRecords() {
     // console.log("FETCHING");
     try {
-      const response = await fetch("http://localhost:5050/customer/");
+      const response = await fetch(
+        "https://laundryapp-dits.netlify.app/customer/"
+      );
 
       if (!response.ok) {
         throw new Error(`An error occurred: ${response.statusText}`);
@@ -28,13 +30,16 @@ export function useRecords() {
 
   async function submitForm(newPerson, callback) {
     try {
-      const response = await fetch("http://localhost:5050/customer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newPerson),
-      });
+      const response = await fetch(
+        "https://laundryapp-dits.netlify.app/customer",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newPerson),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`An error occurred: ${response.statusText}`);
@@ -46,7 +51,7 @@ export function useRecords() {
   }
   async function toggleLog(e) {
     console.log(e);
-    await fetch(`http://localhost:5050/customer/${e.mr._id}`, {
+    await fetch(`https://laundryapp-dits.netlify.app/customer/${e.mr._id}`, {
       method: "PATCH",
       body: JSON.stringify(e.main),
       headers: {
