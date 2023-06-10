@@ -12,7 +12,6 @@ export default function welcome({ form, setForm }) {
   useEffect(() => {
     if (form.email && form.password) {
       navigate("/home");
-      console.log(form);
     }
   }, [form]);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);

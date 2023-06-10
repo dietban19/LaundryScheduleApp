@@ -24,7 +24,7 @@ devices:{deviceID:{id:123, loggedIn:true},{id:432, loggedIn:false} }
 */
 
 const App = () => {
-  const [logIn, setLogIn] = useState(false);
+  const [logIn, setLogIn] = useState(true);
   const myRecord = useRecords();
   useEffect(() => {
     myRecord.fetchRecords();
@@ -69,8 +69,9 @@ const App = () => {
       myData
     ) {
       const isLoggedIn = myData.devices.deviceID.loggedIn;
-      setLogIn(isLoggedIn);
+
       if (isLoggedIn) {
+        // setLogIn(isLoggedIn);
         console.log("refreshed", isLoggedIn);
         setForm(myData);
       }
@@ -90,7 +91,7 @@ const App = () => {
   function ttest() {
     console.log("");
   }
-  console.log("loggedin", logIn);
+
   return (
     <>
       {/* <div>
@@ -105,18 +106,11 @@ const App = () => {
           path="/*"
           element={
             <Navigate
-              to={
-                logIn
-                  ? form.firstName
-                    ? "/home"
-                    : "/homes"
-                  : form.firstName
-                  ? "/welcome"
-                  : "/welcome"
-              }
+              to={logIn && myRecord.records.length > 0 ? "/home" : "/welcome"}
             />
           }
         />
+
         <Route
           path="/signup"
           element={
@@ -125,6 +119,7 @@ const App = () => {
               setForm={setForm}
               handleClick={handleClick}
               storedDeviceID={storedDeviceID}
+              setLogIn={setLogIn}
             />
           }
         />
@@ -135,6 +130,7 @@ const App = () => {
               form={form}
               setForm={setForm}
               storedDeviceID={storedDeviceID}
+              setLogIn={setLogIn}
             />
           }
         />
@@ -148,6 +144,7 @@ const App = () => {
               setForm={setForm}
               storedDeviceID={storedDeviceID}
               handleClick={handleClick}
+              setLogIn={setLogIn}
             />
           }
         />

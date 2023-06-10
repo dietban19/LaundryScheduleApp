@@ -44,6 +44,16 @@ export function useRecords() {
       return;
     }
   }
+  async function toggleLog(e) {
+    console.log(e);
+    await fetch(`http://localhost:5050/customer/${e.mr._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(e.main),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 
-  return { records, submitForm, fetchRecords };
+  return { records, submitForm, fetchRecords, toggleLog };
 }

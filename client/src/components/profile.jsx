@@ -10,6 +10,7 @@ export default function profile({
   setForm,
   storedDeviceID,
   handleClick,
+  setLogIn,
 }) {
   const myRecord = useRecords();
   const navigate = useNavigate();
@@ -19,18 +20,15 @@ export default function profile({
       record.email === form.email
   );
 
-  async function toggleLog(e) {
-    // setNewStuff(e);
-    // console.log("NEW STUFF", newstuff);
-
-    await fetch(`http://localhost:5050/customer/${matchingRecord._id}`, {
-      method: "PATCH",
-      body: JSON.stringify(e),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
+  //   async function toggleLog(e) {
+  //     await fetch(`http://localhost:5050/customer/${matchingRecord._id}`, {
+  //       method: "PATCH",
+  //       body: JSON.stringify(e),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //   }
 
   // console.log("before", myRecord.records);
   function handleLogOut() {
@@ -55,15 +53,18 @@ export default function profile({
         },
       };
       const inputs = {
-        devices: updatedDevices,
-        firstName: matchingRecord.firstName,
-        lastName: matchingRecord.lastName,
-        bday: matchingRecord.bday,
-        email: matchingRecord.email,
-        password: matchingRecord.password,
+        main: {
+          devices: updatedDevices,
+          firstName: matchingRecord.firstName,
+          lastName: matchingRecord.lastName,
+          bday: matchingRecord.bday,
+          email: matchingRecord.email,
+          password: matchingRecord.password,
+        },
+        mr: matchingRecord,
       };
       // console.log("AFTER", matchingRecord);
-      toggleLog(inputs);
+      myRecord.toggleLog(inputs);
       handleClick();
       // console.log("after", myRecord.records);
     }
@@ -76,7 +77,7 @@ export default function profile({
       email: "",
       password: "",
     });
-
+    setLogIn(false);
     navigate("/");
   }
 

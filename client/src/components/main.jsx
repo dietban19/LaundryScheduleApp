@@ -15,7 +15,6 @@ function main({ form, setForm, handleLogOut }) {
   }
   useEffect(() => {
     if (form) {
-      console.log("YESYESYES");
     }
   });
   useEffect(() => {

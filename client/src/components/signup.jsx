@@ -7,7 +7,13 @@ import { useRecords } from "../helpers/useRecords";
 
 import { useLocation } from "react-router-dom";
 
-export default function signup({ form, setForm, handleClick, storedDeviceID }) {
+export default function signup({
+  form,
+  setForm,
+  handleClick,
+  storedDeviceID,
+  setLogIn,
+}) {
   const myRecord = useRecords();
   // useEffect(() => {
   //   console.log("Updated records:", myRecord.records);
@@ -106,6 +112,7 @@ export default function signup({ form, setForm, handleClick, storedDeviceID }) {
       await myRecord.submitForm(newPerson, () => {
         myRecord.fetchRecords(); // Trigger data refresh after navigation
       });
+      setLogIn(true);
       handleClick();
       navigate("/home");
     }

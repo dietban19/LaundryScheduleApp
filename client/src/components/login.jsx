@@ -9,6 +9,7 @@ export default function login({
   setForm,
   storedDeviceID,
   setStoredDeviceId,
+  setLogIn,
 }) {
   const [info, setInfo] = useState({
     email: "",
@@ -77,7 +78,9 @@ export default function login({
           record.devices.deviceID.id === storedDeviceID &&
           record.email === info.email
       );
+
       console.log("before match: " + form);
+
       setForm({
         devices: { deviceID: { id: "", loggedIn: false } },
         firstName: "",
@@ -96,22 +99,18 @@ export default function login({
       };
 
       const inputs = {
-        devices: updatedDevices,
-        firstName: matchedRecord.firstName,
-        lastName: matchedRecord.lastName,
-        bday: matchedRecord.bday,
-        email: matchedRecord.email,
-        password: matchedRecord.password,
-      };
-      console.log(inputs);
-      await fetch(`http://localhost:5050/customer/${matchedRecord._id}`, {
-        method: "PATCH",
-        body: JSON.stringify(inputs),
-        headers: {
-          "Content-Type": "application/json",
+        main: {
+          devices: updatedDevices,
+          firstName: matchedRecord.firstName,
+          lastName: matchedRecord.lastName,
+          bday: matchedRecord.bday,
+          email: matchedRecord.email,
+          password: matchedRecord.password,
         },
-      });
-
+        mr: matchedRecord,
+      };
+      records.toggleLog(inputs);
+      setLogIn(true);
       setForm(inputs);
 
       navigate("/home");
