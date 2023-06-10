@@ -2,13 +2,14 @@ import React from "react";
 
 // We use Route in order to define the different routes of our application
 import { Route, Routes, Navigate } from "react-router-dom";
-
+import styles from "./styles/main.module.css";
 // We import all the components we need in our app
 import Main from "./components/main";
 import Profile from "./components/profile";
 import SignUp from "./components/signup";
 import Welcome from "./components/welcome";
 import Login from "./components/login";
+import Loading from "./components/loading";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MainLayout from "./components/mainlayout.jsx";
@@ -23,6 +24,7 @@ devices:{deviceID:{id:123, loggedIn:true},{id:432, loggedIn:false} }
 */
 
 const App = () => {
+  const [logIn, setLogIn] = useState(false);
   const myRecord = useRecords();
   useEffect(() => {
     myRecord.fetchRecords();
@@ -67,11 +69,13 @@ const App = () => {
       myData
     ) {
       const isLoggedIn = myData.devices.deviceID.loggedIn;
-      console.log("refreshed".isLoggedIn);
+      setLogIn(isLoggedIn);
       if (isLoggedIn) {
+        console.log("refreshed", isLoggedIn);
         setForm(myData);
       }
     } else {
+      navigate("/");
     }
   }, [myData]);
 
@@ -86,13 +90,32 @@ const App = () => {
   function ttest() {
     console.log("");
   }
-
+  console.log("loggedin", logIn);
   return (
     <>
+      {/* <div>
+        {!form.firstName ? <div className={styles.loading}></div> : null}
+      </div> */}
       <Routes>
         <Route
           path="/welcome"
           element={<Welcome form={form} setForm={setForm} />}
+        />
+        <Route
+          path="/*"
+          element={
+            <Navigate
+              to={
+                logIn
+                  ? form.firstName
+                    ? "/home"
+                    : "/homes"
+                  : form.firstName
+                  ? "/welcome"
+                  : "/welcome"
+              }
+            />
+          }
         />
         <Route
           path="/signup"
@@ -115,7 +138,6 @@ const App = () => {
             />
           }
         />
-        <Route path="*" element={<Navigate to="/welcome" />} />
 
         <Route path="/home" element={<Main form={form} setForm={setForm} />} />
         <Route

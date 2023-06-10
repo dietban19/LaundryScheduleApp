@@ -10,9 +10,6 @@ export default function login({
   storedDeviceID,
   setStoredDeviceId,
 }) {
-  //   useEffect(() => {
-  //     localStorage.setItem("deviceID", form.devices.deviceID.id);
-  //   }, [form.devices.deviceID.id]);
   const [info, setInfo] = useState({
     email: "",
     password: "",
@@ -67,14 +64,7 @@ export default function login({
       handleError("email", "Email Does Not exist");
     }
   };
-  //   console.log(storedDeviceID);
-  //   const i = records.records.find(
-  //     (record) =>
-  //       record.devices.deviceID.id === storedDeviceID &&
-  //       record.email === info.email
-  //   );
-  //   console.log(i);
-  // This function will handle the submission.
+
   async function onSubmit(e) {
     e.preventDefault();
 
@@ -96,22 +86,27 @@ export default function login({
         email: "",
         password: "",
       });
-      console.log("AFTERs", form);
-      //   console.log("HErE", form);
-      console.log("found", matchedRecord);
-      matchedRecord.devices.deviceID.loggedIn = true;
-      console.log("1", matchedRecord);
+
+      const updatedDevices = {
+        ...matchedRecord.devices,
+        deviceID: {
+          ...matchedRecord.devices.deviceID,
+          loggedIn: true,
+        },
+      };
+
       const inputs = {
-        devices: matchedRecord.devices,
+        devices: updatedDevices,
         firstName: matchedRecord.firstName,
         lastName: matchedRecord.lastName,
         bday: matchedRecord.bday,
         email: matchedRecord.email,
         password: matchedRecord.password,
       };
+      console.log(inputs);
       await fetch(`http://localhost:5050/customer/${matchedRecord._id}`, {
         method: "PATCH",
-        body: JSON.stringify(matchedRecord),
+        body: JSON.stringify(inputs),
         headers: {
           "Content-Type": "application/json",
         },
@@ -129,18 +124,24 @@ export default function login({
   // This fllowing section will display the form that takes the input from the user.
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-
+  function handleGoBack() {
+    setForm({
+      devices: { deviceID: { id: "", loggedIn: false } },
+      firstName: "",
+      lastName: "",
+      bday: "",
+      email: "",
+      password: "",
+    });
+    console.log("going bacl");
+    navigate("/welcome");
+  }
   return (
     <div className="welcome-page">
       <div className="card">
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>
-            <button
-              className={styles.arrow}
-              onClick={() => {
-                navigate("/welcome");
-              }}
-            >
+            <button className={styles.arrow} onClick={handleGoBack}>
               <span>{"<"}</span>
             </button>
             <h2 className={styles.headerTitle}> Log in or sign up</h2>

@@ -7,46 +7,33 @@ import { useRecords } from "../helpers/useRecords";
 
 import Calendar from "./calendar";
 function main({ form, setForm, handleLogOut }) {
+  const [isLoading, setIsLoading] = useState(true);
   const records = useRecords();
-  //   function handleClick() {
-  //     records.fetchRecords();
-  //     console.log("pdate");
-  //   }
+
   function handleTest() {
     console.log(records.records);
   }
   useEffect(() => {
-    //   records.fetchRecords();
     if (form) {
       console.log("YESYESYES");
     }
   });
-  //   useEffect(() => {
-  //     console.log("calling");
-  //     records.fetchRecords();
-  //     console.log("123", records.records);
-  //   }, []);
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(loadingTimeout);
+  }, []);
 
   return (
     <div className={styles.mainPage}>
       {!form.firstName ? <div className={styles.loading}></div> : null}
       <div className={styles.mainContent}>
-        {/* <button onClick={handleClick}>Press here</button>
-        <button onClick={handleTest}>Test</button> */}
-        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker />
-        </LocalizationProvider> */}
         <div className={styles.mainHeader}>Welcome, {form.firstName} </div>
         <div className={styles.mainCalendar}>
           <Calendar />
         </div>
-
-        {/* <div className={styles.main}>{form.firstName}</div>
-        <div className={styles.main}>{form.lastName}</div>
-        <div className={styles.main}>{form.bday}</div>
-        <div className={styles.main}>{form.email}</div>
-        <div className={styles.main}>{form.password}</div> */}
-        {/* <button onClick={handleLogOut}>Logout</button> */}
       </div>
       <NavBar />
     </div>

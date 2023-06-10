@@ -75,10 +75,7 @@ export default function signup({ form, setForm, handleClick, storedDeviceID }) {
       handleError("email", " ", "remove");
     }
   };
-  // useEffect(() => {
-  //   localStorage.setItem("deviceID", form.devices.deviceID.id);
-  // }, [form.devices.deviceID.id]);
-  // This function will handle the submission.
+
   async function onSubmit(e) {
     e.preventDefault();
 
@@ -123,19 +120,25 @@ export default function signup({ form, setForm, handleClick, storedDeviceID }) {
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-
+  function handleGoBack() {
+    setForm({
+      devices: { deviceID: { id: "", loggedIn: false } },
+      firstName: "",
+      lastName: "",
+      bday: "",
+      email: "",
+      password: "",
+    });
+    console.log("going bacl");
+    navigate("/welcome");
+  }
   // This following section will display the form that takes the input from the user.
   return (
     <div className="welcome-page">
       <div className="card">
         <div className={styles.welcomeHeaderContainer}>
           <div className={styles.headerContent}>
-            <button
-              className={styles.arrow}
-              onClick={() => {
-                navigate("/welcome");
-              }}
-            >
+            <button className={styles.arrow} onClick={handleGoBack}>
               <span>{"<"}</span>
             </button>
             <h2 className={styles.headerTitle}> Log in or sign up</h2>

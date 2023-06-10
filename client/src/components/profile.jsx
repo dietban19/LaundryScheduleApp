@@ -43,13 +43,27 @@ export default function profile({
     const getRecords = myRecord.records;
     // console.log(getRecords);
     // Find the record that matches the storedDeviceID
-
+    console.log("LOGOUT = ", confirmLogout);
     if (confirmLogout && matchingRecord) {
       // Update the matching record to set loggedIn to false
 
-      matchingRecord.devices.deviceID.loggedIn = false;
+      const updatedDevices = {
+        ...matchingRecord.devices,
+        deviceID: {
+          ...matchingRecord.devices.deviceID,
+          loggedIn: false,
+        },
+      };
+      const inputs = {
+        devices: updatedDevices,
+        firstName: matchingRecord.firstName,
+        lastName: matchingRecord.lastName,
+        bday: matchingRecord.bday,
+        email: matchingRecord.email,
+        password: matchingRecord.password,
+      };
       // console.log("AFTER", matchingRecord);
-      toggleLog(matchingRecord);
+      toggleLog(inputs);
       handleClick();
       // console.log("after", myRecord.records);
     }
