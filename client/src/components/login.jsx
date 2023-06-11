@@ -90,7 +90,7 @@ export default function login({
         email: "",
         password: "",
       });
-
+      console.log("1");
       const updatedDevices = {
         ...matchedRecord.devices,
         deviceID: {
@@ -98,7 +98,7 @@ export default function login({
           loggedIn: true,
         },
       };
-
+      console.log("2");
       const inputs = {
         main: {
           devices: updatedDevices,
@@ -110,6 +110,7 @@ export default function login({
         },
         mr: matchedRecord,
       };
+      console.log("3");
       console.log(inputs);
       records.toggleLog(inputs);
       setLogIn(true);
