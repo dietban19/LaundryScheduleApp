@@ -79,7 +79,8 @@ export default function login({
           record.devices.deviceID.id === storedDeviceID &&
           record.email === info.email
       );
-
+      console.log("MATCHED RECORD", matchedRecord);
+      console.log(storedDeviceID, info);
       console.log("before match: " + form);
 
       setForm({
@@ -91,6 +92,7 @@ export default function login({
         password: "",
       });
       console.log("1");
+      console.log("MATCHED RECORD", matchedRecord);
       const updatedDevices = {
         ...matchedRecord.devices,
         deviceID: {
