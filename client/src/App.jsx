@@ -59,6 +59,7 @@ const App = () => {
   );
 
   useEffect(() => {
+    console.log(storedDeviceID, myRecord.records);
     if (
       (!form ||
         !form.firstName ||

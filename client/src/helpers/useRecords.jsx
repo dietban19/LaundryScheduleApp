@@ -5,24 +5,22 @@ export function useRecords() {
   // console.log("RECORDS", records);
 
   async function fetchRecords() {
-    // console.log("FETCHING");
     try {
       const response = await fetch(
-        "https://laundryapp-dits.netlify.app/customer/"
+        "https://laundryapp-szsx.onrender.com/customer/"
       );
-
+      console.log("Fetching");
       if (!response.ok) {
         throw new Error(`An error occurred: ${response.statusText}`);
       }
 
       const data = await response.json();
-      // console.log("DATA!", [...data]);
+      console.log(data);
       setRecords([...data]);
     } catch (error) {
       window.alert(error.message);
     }
   }
-  // console.log("RECORDS", records);
   useEffect(() => {
     // console.log("FETCHING STUFF");
     fetchRecords();
@@ -31,7 +29,7 @@ export function useRecords() {
   async function submitForm(newPerson, callback) {
     try {
       const response = await fetch(
-        "https://laundryapp-dits.netlify.app/customer",
+        "https://laundryapp-szsx.onrender.com/customer",
         {
           method: "POST",
           headers: {
@@ -51,7 +49,7 @@ export function useRecords() {
   }
   async function toggleLog(e) {
     console.log(e);
-    await fetch(`https://laundryapp-dits.netlify.app/customer/${e.mr._id}`, {
+    await fetch(`https://laundryapp-szsx.onrender.com/customer/${e.mr._id}`, {
       method: "PATCH",
       body: JSON.stringify(e.main),
       headers: {
