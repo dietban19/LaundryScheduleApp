@@ -114,7 +114,9 @@ export default function login({
       };
       console.log("3");
       console.log(inputs);
+      console.log("before", form);
       records.toggleLog(inputs);
+      console.log("after", form);
       setLogIn(true);
       setForm(inputs);
 
