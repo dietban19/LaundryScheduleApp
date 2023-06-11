@@ -56,6 +56,7 @@ export function useRecords() {
         "Content-Type": "application/json",
       },
     });
+    console.log(e.main);
   }
 
   return { records, submitForm, fetchRecords, toggleLog };
