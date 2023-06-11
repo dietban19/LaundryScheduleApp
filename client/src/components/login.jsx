@@ -113,9 +113,10 @@ export default function login({
         mr: matchedRecord,
       };
       console.log("3");
-      //   console.log(inputs);
+
       console.log("before");
       console.log(form);
+      console.log(inputs);
       records.toggleLog(inputs);
       console.log("after", form);
       setLogIn(true);
