@@ -58,6 +58,7 @@ export default function login({
         (record) => record.email === e.email
       );
       const matchedPassword = matchedRecord.password;
+      console.log(matchedPassword);
       if (matchedPassword !== e.password) {
         handleError("password", "Incorrect Password");
       }
@@ -109,6 +110,7 @@ export default function login({
         },
         mr: matchedRecord,
       };
+      console.log(inputs);
       records.toggleLog(inputs);
       setLogIn(true);
       setForm(inputs);
