@@ -89,7 +89,9 @@ const Calendar = () => {
 
     const blanks = [];
     for (let i = 0; i < startingDay; i++) {
-      blanks.push(<td key={`blank_${i}`} className="calendar-day empty"></td>);
+      blanks.push(
+        <div key={`blank_${i}`} className="calendar-day empty"></div>
+      );
     }
 
     const totalSlots = [...blanks, ...calendarDays];
@@ -196,13 +198,13 @@ const Calendar = () => {
       <table className={styles.calendar}>
         <thead className={styles.tableHead}>
           <tr className={styles.headerRow}>
-            <th>Sun</th>
-            <th>Mon</th>
-            <th>Tue</th>
-            <th>Wed</th>
-            <th>Thu</th>
-            <th>Fri</th>
-            <th>Sat</th>
+            <th>S</th>
+            <th>M</th>
+            <th>T</th>
+            <th>W</th>
+            <th>Th</th>
+            <th>F</th>
+            <th>S</th>
           </tr>
         </thead>
         <tbody className={styles.tableBody}>{renderCalendar()}</tbody>
