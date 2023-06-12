@@ -54,6 +54,7 @@ const Calendar = () => {
 
   const renderCalendar = () => {
     const currentDate = selectedDate ? selectedDate : new Date();
+
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
 
@@ -149,15 +150,24 @@ const Calendar = () => {
   ];
   const handlePreviousMonth = () => {
     setSelectedDate((prevDate) => {
-      return dayjs(prevDate).subtract(1, "month").toDate();
+      const previousMonth = prevDate
+        ? dayjs(prevDate).subtract(1, "month")
+        : dayjs().subtract(1, "month");
+      const firstDayOfMonth = previousMonth.startOf("month");
+      return firstDayOfMonth.toDate();
     });
   };
 
   const handleNextMonth = () => {
     setSelectedDate((prevDate) => {
-      return dayjs(prevDate).add(1, "month").toDate();
+      const nextMonth = prevDate
+        ? dayjs(prevDate).add(1, "month")
+        : dayjs().add(1, "month");
+      const firstDayOfMonth = nextMonth.startOf("month");
+      return firstDayOfMonth.toDate();
     });
   };
+
   return (
     <div className={styles.calendarContainer}>
       {showPopup && (
