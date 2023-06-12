@@ -29,7 +29,7 @@ function main({ form, setForm, handleLogOut }) {
     <div className={styles.mainPage}>
       {!form.firstName ? <div className={styles.loading}></div> : null}
       <div className={styles.mainContent}>
-        <div className={styles.mainHeader}>Welcome, {form.firstName} </div>
+        <div className={styles.mainHeader}>Welcome,s {form.firstName} </div>
         <div className={styles.mainCalendar}>
           <Calendar />
         </div>

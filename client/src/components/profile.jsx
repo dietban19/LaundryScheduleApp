@@ -56,18 +56,18 @@ export default function profile({
       myRecord.toggleLog(inputs);
       handleClick();
       // console.log("after", myRecord.records);
+      console.log("CLEARING");
+      setForm({
+        devices: { deviceID: { id: "", loggedIn: true } },
+        firstName: "",
+        lastName: "",
+        bday: "",
+        email: "",
+        password: "",
+      });
+      setLogIn(false);
+      navigate("/");
     }
-    console.log("CLEARING");
-    setForm({
-      devices: { deviceID: { id: "", loggedIn: true } },
-      firstName: "",
-      lastName: "",
-      bday: "",
-      email: "",
-      password: "",
-    });
-    setLogIn(false);
-    navigate("/");
   }
 
   return (
