@@ -10,6 +10,7 @@
 .headers {
   padding: 1rem;
   display: flex;
+  display: -webkit-flex;
   flex-direction: column;
   gap: 0px;
   width: 100%;
@@ -42,21 +43,23 @@
 
 .calendar {
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
+
   height: 100%;
   /* margin: 0.5rem; */
 }
 
 .calendar__day {
-  background-color: red;
+  background-color: purple;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 80%;
 }
 .myDay {
-  width: 40px;
-  height: 40px;
+  background-color: red;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,7 +78,8 @@
   outline: 1px solid black;
 }
 .tableBody tr {
-  padding: 1rem;
+  background-color: blue;
+  height: 0%;
   width: 10%;
 }
 .tableBody tr td {
@@ -91,9 +95,15 @@
   height: 100%;
   background: rgba(255, 255, 255, 0.48);
 }
-
+td {
+  text-align: center;
+}
 .headers__dates {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.dataSOMETHING {
+  height: 0%;
 }

@@ -103,7 +103,9 @@ const Calendar = () => {
       if (index % 7 !== 0) {
         cells.push(slot);
       } else {
-        rows.push(cells);
+        if (cells.length > 0) {
+          rows.push(cells);
+        }
         cells = [];
         cells.push(slot);
       }
