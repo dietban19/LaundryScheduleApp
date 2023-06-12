@@ -12,10 +12,7 @@
 }
 
 .mainContent {
-  /* margin: 1rem; */
   background-color: var(--clr-neutral-600);
-  /* border-radius: 0.75rem; */
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,6 +51,7 @@
   border-radius: 0.75rem;
   overflow: hidden;
   margin-bottom: 1rem;
+  margin: 1rem;
   display: flex;
   box-shadow: 0rem 0rem 1em 0.3rem rgba(0, 0, 0, 0.2);
 }

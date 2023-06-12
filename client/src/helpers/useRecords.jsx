@@ -9,13 +9,13 @@ export function useRecords() {
       const response = await fetch(
         "https://laundryapp-szsx.onrender.com/customer/"
       );
-      console.log("Fetching");
+      // console.log("Fetching");
       if (!response.ok) {
         throw new Error(`An error occurred: ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setRecords([...data]);
     } catch (error) {
       window.alert(error.message);
@@ -56,7 +56,7 @@ export function useRecords() {
         "Content-Type": "application/json",
       },
     });
-    console.log(e.main);
+    console.log("e.main", e.main);
   }
 
   return { records, submitForm, fetchRecords, toggleLog };

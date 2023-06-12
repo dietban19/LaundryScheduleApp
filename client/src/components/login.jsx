@@ -116,11 +116,12 @@ export default function login({
 
       console.log("before");
       console.log(form);
-      console.log(inputs);
+      console.log("inputs.main", inputs.main);
       records.toggleLog(inputs);
-      console.log("after", form);
+
       setLogIn(true);
-      setForm(inputs);
+      setForm(inputs.main);
+      console.log("after", form);
 
       navigate("/home");
     }
