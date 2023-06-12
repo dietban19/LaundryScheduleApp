@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   background-color: white;
-  position: relative;
+  /* position: relative; */
 }
 
 .headers {
@@ -88,18 +88,21 @@
 td {
   text-align: center;
 }
-
 .popup {
   position: absolute;
   background: white;
-  /* top: 50%;
-  left: 50%; */
-
   display: grid;
   place-items: center;
+  top: 0;
 
   width: 100%;
   height: 100%;
 
-  background: red;
+  background: rgba(255, 255, 255, 0.48);
+}
+
+.headers__dates {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

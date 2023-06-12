@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/calendar.module.css";
 import dayjs from "dayjs";
 import Popup from "./popup";
 const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [dayFirst, setDayFirst] = useState(0);
+  const [dayLast, setDayLast] = useState(0);
+  const [dayRange, setDayRange] = useState({
+    colIndex: 0,
+    rowIndex: 0,
+    lastDay: 0,
+    dates: { dayOne: 0, dayLast: 0 },
+  });
   const handleDateClick = (date) => {
     setSelectedDate(date);
     setShowPopup(true);
@@ -12,14 +20,45 @@ const Calendar = () => {
   const handlePopupClose = () => {
     setShowPopup(false);
   };
+  useEffect(() => {
+    if (selectedDate) {
+      const currentDate = selectedDate ? selectedDate : new Date();
+      const currentMonth = currentDate.getMonth();
+      const currentYear = currentDate.getFullYear();
+
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const lastDay = new Date(currentYear, currentMonth + 1, 0);
+      console.log("last", lastDay);
+
+      const startingDay = firstDay.getDay();
+
+      const rowIndex = Math.floor(
+        (startingDay + selectedDate.getDate() - 1) / 7
+      );
+      const colIndex = (startingDay + selectedDate.getDate() - 1) % 7;
+      const lday = parseInt(dayjs(lastDay).format("DD"), 10);
+      setDayFirst(parseInt(dayjs(selectedDate).format("DD"), 10) - colIndex);
+      const endDay =
+        parseInt(dayjs(selectedDate).format("DD"), 10) + 6 - colIndex;
+      setDayRange({
+        colIndex: colIndex,
+        rowIndex: rowIndex,
+        lastDay: lday,
+        dates: {
+          dayOne: parseInt(dayjs(selectedDate).format("DD"), 10) - colIndex,
+          dayLast: endDay > lday ? lday : endDay,
+        },
+      });
+    }
+  }, [selectedDate]);
+
   const renderCalendar = () => {
-    const currentDate = new Date();
+    const currentDate = selectedDate ? selectedDate : new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
 
     const firstDay = new Date(currentYear, currentMonth, 1);
     const lastDay = new Date(currentYear, currentMonth + 1, 0);
-
     const daysInMonth = lastDay.getDate();
     const startingDay = firstDay.getDay();
 
@@ -70,7 +109,17 @@ const Calendar = () => {
         rows.push(cells);
       }
     });
+    // // Find the index of the selected date within the calendarDays array
+    // const selectedIndex = calendarDays.findIndex(
+    //   (day) => day.props.children === selectedDate.getDate()
+    // );
 
+    // // Calculate the start and end indices for the range of dates to be displayed
+    // const startIndex = Math.max(0, selectedIndex - 3);
+    // const endIndex = Math.min(calendarDays.length - 1, selectedIndex + 3);
+
+    // // Extract the range of dates from the calendarDays array
+    // const rangeOfDates = calendarDays.slice(startIndex, endIndex + 1);
     return rows.map((row, rowIndex) => (
       <tr key={rowIndex}>
         {row.map((slot, slotIndex) => (
@@ -96,29 +145,52 @@ const Calendar = () => {
     "November",
     "December",
   ];
+  const handlePreviousMonth = () => {
+    setSelectedDate((prevDate) => {
+      return dayjs(prevDate).subtract(1, "month").toDate();
+    });
+  };
 
+  const handleNextMonth = () => {
+    setSelectedDate((prevDate) => {
+      return dayjs(prevDate).add(1, "month").toDate();
+    });
+  };
   return (
     <div className={styles.calendarContainer}>
       {showPopup && (
         <div className={styles.popup}>
-          <Popup selectedDate={selectedDate} onClose={handlePopupClose} />
+          <Popup
+            selectedDate={selectedDate}
+            onClose={handlePopupClose}
+            dayRange={dayRange}
+            month={months[dayjs(selectedDate).format("M") - 1]}
+          />
         </div>
       )}
       <div className={styles.headers}>
         <h2 className={styles.headers__text}>
           {selectedDate ? "Selected Date" : "Today's Date"}
         </h2>
-        <div className={styles.headers__date}>
-          <div className={styles.headers__date__day}>
-            {selectedDate
-              ? dayjs(selectedDate).format("DD")
-              : dayjs().format("DD")}
+        <div className={styles.headers__dates}>
+          <button onClick={handlePreviousMonth}>
+            <span>{"<"}</span>
+          </button>
+          <div className={styles.headers__date}>
+            <div className={styles.headers__date__day}>
+              {selectedDate
+                ? dayjs(selectedDate).format("DD")
+                : dayjs().format("DD")}
+            </div>
+            <div className={styles.headers__date__month}>
+              {selectedDate
+                ? months[dayjs(selectedDate).format("M") - 1]
+                : months[dayjs().format("M") - 1]}
+            </div>
           </div>
-          <div className={styles.headers__date__month}>
-            {selectedDate
-              ? months[dayjs(selectedDate).format("M") - 1]
-              : months[dayjs().format("M") - 1]}
-          </div>
+          <button onClick={handleNextMonth}>
+            <span>{">"}</span>
+          </button>
         </div>
       </div>
       <table className={styles.calendar}>

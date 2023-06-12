@@ -12,6 +12,7 @@
 }
 
 .mainContent {
+  position: relative;
   background-color: var(--clr-neutral-600);
   display: flex;
   justify-content: center;

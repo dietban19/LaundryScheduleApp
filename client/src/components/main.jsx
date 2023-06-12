@@ -10,9 +10,6 @@ function main({ form, setForm, handleLogOut }) {
   const [isLoading, setIsLoading] = useState(true);
   const records = useRecords();
 
-  function handleTest() {
-    console.log(records.records);
-  }
   useEffect(() => {
     if (form) {
     }
@@ -27,9 +24,9 @@ function main({ form, setForm, handleLogOut }) {
 
   return (
     <div className={styles.mainPage}>
-      {!form.firstName ? <div className={styles.loading}></div> : null}
+      {/* {!form.firstName ? <div className={styles.loading}></div> : null} */}
       <div className={styles.mainContent}>
-        <div className={styles.mainHeader}>Welcome,s {form.firstName} </div>
+        <div className={styles.mainHeader}>Welcome, {form.firstName} </div>
         <div className={styles.mainCalendar}>
           <Calendar />
         </div>

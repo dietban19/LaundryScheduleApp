@@ -5,20 +5,32 @@ export function useRecords() {
   // console.log("RECORDS", records);
 
   async function fetchRecords() {
+    const url = "https://laundryapp-szsx.onrender.com/customer/";
+    const fallbackUrl = "http://localhost:5050";
     try {
-      const response = await fetch(
-        "https://laundryapp-szsx.onrender.com/customer/"
-      );
+      const response = await fetch(url);
       // console.log("Fetching");
       if (!response.ok) {
-        throw new Error(`An error occurred: ${response.statusText}`);
+        // throw new Error(`An error occurred: ${response.statusText}`);
       }
 
       const data = await response.json();
-      // console.log(data);
       setRecords([...data]);
     } catch (error) {
+      console.error(error);
       window.alert(error.message);
+      try {
+        const fallbackResponse = await fetch(fallbackUrl);
+        if (!fallbackResponse.ok) {
+          throw new Error(`An error occurred: ${fallbackResponse.statusText}`);
+        }
+
+        const fallbackData = await fallbackResponse.json();
+        setRecords([...fallbackData]);
+      } catch (fallbackError) {
+        console.error(fallbackError);
+        window.alert(`Both URLs failed. Error: ${fallbackError.message}`);
+      }
     }
   }
   useEffect(() => {

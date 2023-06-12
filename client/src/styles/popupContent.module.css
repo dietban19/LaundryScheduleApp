@@ -1,0 +1,15 @@
+.popup {
+  border: 1px solid black;
+  width: 95%;
+  height: 95%;
+}
+
+.popupContent {
+  background: red;
+  padding: 1rem;
+}
+
+.popupTable {
+  outline: 1px solid black;
+  width: 100%;
+}

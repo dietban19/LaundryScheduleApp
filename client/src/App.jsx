@@ -24,11 +24,22 @@ devices:{deviceID:{id:123, loggedIn:true},{id:432, loggedIn:false} }
 */
 
 const App = () => {
-  const [logIn, setLogIn] = useState(true);
+  const [logIn, setLogIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const myRecord = useRecords();
+  // useEffect(() => {
+  //   myRecord.fetchRecords();
+  // }, []);
+
   useEffect(() => {
-    myRecord.fetchRecords();
+    setIsLoading(true);
+
+    myRecord.fetchRecords().then(() => {
+      setIsLoading(false);
+    });
   }, []);
+
   const getDeviceId = () => {
     let deviceId = localStorage.getItem("deviceId");
     if (!deviceId) {
@@ -50,7 +61,7 @@ const App = () => {
 
   const params = useParams();
   const navigate = useNavigate();
-  const thisRecord = useRecords();
+  // const thisRecord = useRecords();
 
   const myData = myRecord.records.find(
     (record) =>
@@ -72,7 +83,7 @@ const App = () => {
       const isLoggedIn = myData.devices.deviceID.loggedIn;
 
       if (isLoggedIn) {
-        // setLogIn(isLoggedIn);
+        setLogIn(isLoggedIn);
         console.log("refreshed", isLoggedIn);
         setForm(myData);
       }
@@ -93,6 +104,7 @@ const App = () => {
     console.log("");
   }
 
+  // if
   return (
     <>
       {/* <div>
@@ -106,9 +118,13 @@ const App = () => {
         <Route
           path="/*"
           element={
-            <Navigate
-              to={logIn && myRecord.records.length > 0 ? "/home" : "/welcome"}
-            />
+            isLoading ? (
+              <Loading /> // Replace 'Loading' with the actual loading component
+            ) : (
+              <Navigate
+                to={logIn && myRecord.records.length > 0 ? "/home" : "/welcome"}
+              />
+            )
           }
         />
 
