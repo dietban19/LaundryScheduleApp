@@ -195,7 +195,9 @@ export default function login({
                   id="email"
                   placeholder="example@example.com"
                   // value={form.email}
-                  onChange={(e) => updateForm({ email: e.target.value })}
+                  onChange={(e) =>
+                    updateForm({ email: e.target.value.toLowerCase() })
+                  }
                 />
               </div>
               <span className="errInfo"></span>

@@ -201,7 +201,7 @@ export default function signup({
                   className="form-control"
                   id="email"
                   placeholder="example@example.com"
-                  value={form.email}
+                  value={form.email.toLowerCase()}
                   onChange={(e) => updateForm({ email: e.target.value })}
                 />
               </div>
