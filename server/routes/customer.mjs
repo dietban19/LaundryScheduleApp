@@ -49,7 +49,7 @@ router.patch("/:id", async (req, res) => {
       password: req.body.password,
     },
   };
-
+  console.log(updates);
   let collection = await db.collection("customers");
   let result = await collection.updateOne(query, updates);
 

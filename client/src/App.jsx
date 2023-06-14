@@ -51,7 +51,7 @@ const App = () => {
   const storedDeviceID = getDeviceId();
 
   const [form, setForm] = useState({
-    devices: { deviceID: { id: "", loggedIn: false } },
+    devices: [],
     firstName: "",
     lastName: "",
     bday: "",
@@ -63,10 +63,15 @@ const App = () => {
   const navigate = useNavigate();
   // const thisRecord = useRecords();
 
-  const myData = myRecord.records.find(
-    (record) =>
-      record.devices.deviceID.id === storedDeviceID &&
-      record.devices.deviceID.loggedIn === true
+  // const myData = myRecord.records.find(
+  //   (record) =>
+  //     record.devices.deviceID.id === storedDeviceID &&
+  //     record.devices.deviceID.loggedIn === true
+  // );
+  const myData = myRecord.records.find((record) =>
+    record.devices.some(
+      (device) => device.id === storedDeviceID && device.loggedIn === true
+    )
   );
 
   useEffect(() => {
@@ -80,8 +85,8 @@ const App = () => {
         !form.password) &&
       myData
     ) {
-      const isLoggedIn = myData.devices.deviceID.loggedIn;
-
+      const isLoggedIn = myData.devices[0].loggedIn;
+      console.log(myData);
       if (isLoggedIn) {
         setLogIn(isLoggedIn);
         console.log("refreshed", isLoggedIn);

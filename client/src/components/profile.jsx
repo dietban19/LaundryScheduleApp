@@ -16,49 +16,62 @@ export default function profile({
   const navigate = useNavigate();
   const matchingRecord = myRecord.records.find(
     (record) =>
-      record.devices.deviceID.id === storedDeviceID &&
-      record.email === form.email
+      record.devices.id === storedDeviceID && record.email === form.email
   );
 
   function handleLogOut() {
     const matchingRecord = myRecord.records.find(
       (record) =>
-        record.devices.deviceID.id === storedDeviceID &&
+        record.devices.some((device) => device.id === storedDeviceID) &&
         record.email === form.email
     );
+
+    console.log(matchingRecord);
     var confirmLogout = window.confirm("Are you sure you want to log out?");
     const getRecords = myRecord.records;
     // console.log(getRecords);
     // Find the record that matches the storedDeviceID
     console.log("LOGOUT = ", confirmLogout);
+
     if (confirmLogout && matchingRecord) {
       // Update the matching record to set loggedIn to false
 
-      const updatedDevices = {
-        ...matchingRecord.devices,
-        deviceID: {
-          ...matchingRecord.devices.deviceID,
-          loggedIn: false,
-        },
-      };
+      // const updatedDevices = {
+      //   ...matchingRecord,
+      //   devices: [
+      //     ...matchingRecord.devices,
+      //     { id: matchingRecord.devices.id, loggedIn: false },
+      //   ],
+      // };
+      const updatedMatchingRecord = { ...matchingRecord }; // Create a shallow copy
+
+      const deviceIndex = updatedMatchingRecord.devices.findIndex(
+        (device) => device.id === storedDeviceID
+      );
+
+      if (deviceIndex !== -1) {
+        updatedMatchingRecord.devices[deviceIndex].loggedIn = false;
+      }
+      console.log(updatedMatchingRecord);
       const inputs = {
-        main: {
-          devices: updatedDevices,
-          firstName: matchingRecord.firstName,
-          lastName: matchingRecord.lastName,
-          bday: matchingRecord.bday,
-          email: matchingRecord.email,
-          password: matchingRecord.password,
-        },
+        main:
+          // devices: updatedDevices,
+          // firstName: matchingRecord.firstName,
+          // lastName: matchingRecord.lastName,
+          // bday: matchingRecord.bday,
+          // email: matchingRecord.email,
+          // password: matchingRecord.password,
+          updatedMatchingRecord,
         mr: matchingRecord,
       };
+      console.log(inputs);
       // console.log("AFTER", matchingRecord);
       myRecord.toggleLog(inputs);
       handleClick();
       // console.log("after", myRecord.records);
       console.log("CLEARING");
       setForm({
-        devices: { deviceID: { id: "", loggedIn: true } },
+        devices: [],
         firstName: "",
         lastName: "",
         bday: "",
@@ -66,6 +79,7 @@ export default function profile({
         password: "",
       });
       setLogIn(false);
+      console.log("Navigating to /");
       navigate("/");
     }
   }

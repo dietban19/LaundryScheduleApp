@@ -93,14 +93,7 @@ export default function signup({
     if (!document.querySelectorAll('[class*="error"]').length > 0) {
       const updatedForm = {
         ...form,
-        devices: {
-          ...form.devices,
-          deviceID: {
-            ...form.devices.deviceID,
-            id: storedDeviceID,
-            loggedIn: true,
-          },
-        },
+        devices: [...form.devices, { id: storedDeviceID, loggedIn: true }],
       };
       console.log("IPADATE: " + updatedForm);
       setForm(updatedForm);
@@ -129,7 +122,7 @@ export default function signup({
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   function handleGoBack() {
     setForm({
-      devices: { deviceID: { id: "", loggedIn: false } },
+      devices: [],
       firstName: "",
       lastName: "",
       bday: "",
