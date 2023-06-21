@@ -49,7 +49,7 @@ const App = () => {
     return deviceId;
   };
   const storedDeviceID = getDeviceId();
-
+  const [myD, setMyD] = useState("");
   const [form, setForm] = useState({
     devices: [],
     firstName: "",
@@ -60,21 +60,31 @@ const App = () => {
   });
 
   const navigate = useNavigate();
-
   const myData = myRecord.records.find((record) =>
     record.devices.some(
       (device) => device.id === storedDeviceID && device.loggedIn === true
     )
   );
-  console.log(myData);
-  if (myData) {
-    if (!logIn) {
-      setLogIn(true);
-    }
-  }
+  // console.log(myData);
+  useEffect(() => {
+    const delay = 1000; // Adjust the delay time as needed
+    setIsLoading(true);
+    setTimeout(() => {
+      myRecord.fetchRecords();
+      setIsLoading(false);
+
+      if (myD) {
+        if (!logIn) {
+          console.log(myD);
+          console.log("JEJEJJE");
+          console.log(form);
+          // setLogIn(true);
+        }
+      }
+    }, delay);
+  }, [logIn]);
 
   useEffect(() => {
-    console.log("HERE", logIn);
     if (
       !form ||
       !form.firstName ||
@@ -83,9 +93,12 @@ const App = () => {
       !form.email ||
       !form.password
     ) {
-      if (logIn) {
+      console.log("MYRECRS", myRecord.records);
+      if (myData) {
+        console.log("hello");
         setForm(myData);
       } else {
+        console.log("REFES");
         navigate("/");
       }
     }
@@ -102,8 +115,7 @@ const App = () => {
   function ttest() {
     console.log("");
   }
-
-  console.log(storedDeviceID);
+  console.log("LOGIN", logIn);
   return (
     <>
       {/* <div>
@@ -136,6 +148,8 @@ const App = () => {
               handleClick={handleClick}
               storedDeviceID={storedDeviceID}
               setLogIn={setLogIn}
+              myD={myD}
+              setMyD={setMyD}
             />
           }
         />
@@ -148,6 +162,8 @@ const App = () => {
               storedDeviceID={storedDeviceID}
               setLogIn={setLogIn}
               logIn={logIn}
+              myD={myD}
+              setMyD={setMyD}
             />
           }
         />
@@ -162,6 +178,8 @@ const App = () => {
               storedDeviceID={storedDeviceID}
               handleClick={handleClick}
               setLogIn={setLogIn}
+              myD={myD}
+              setMyD={setMyD}
             />
           }
         />

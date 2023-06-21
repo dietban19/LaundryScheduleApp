@@ -10,6 +10,8 @@ export default function login({
   storedDeviceID,
   setStoredDeviceId,
   setLogIn,
+  myD,
+  setMyD,
 }) {
   const [info, setInfo] = useState({
     email: "",
@@ -116,7 +118,13 @@ export default function login({
           mr: matchedRecord,
         };
         records.toggleLog(inputs);
-        // console.log(inputs.main);
+        const myData = records.records.find((record) =>
+          record.devices.some(
+            (device) => device.id === storedDeviceID && device.loggedIn === true
+          )
+        );
+        console.log("HERE NOW", myData);
+        setMyD(myData);
         setLogIn(true);
         setForm(inputs.main);
 

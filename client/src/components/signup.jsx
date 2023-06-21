@@ -13,6 +13,8 @@ export default function signup({
   handleClick,
   storedDeviceID,
   setLogIn,
+  myD,
+  setMyD,
 }) {
   const myRecord = useRecords();
   // useEffect(() => {
@@ -105,6 +107,12 @@ export default function signup({
       await myRecord.submitForm(newPerson, () => {
         myRecord.fetchRecords(); // Trigger data refresh after navigation
       });
+      //   const myData = myRecord.records.find((record) =>
+      //   record.devices.some(
+      //     (device) => device.id === storedDeviceID && device.loggedIn === true
+      //   )
+      // );
+      // console.log("HERE NOW", myData)
       setLogIn(true);
       handleClick();
       navigate("/home");
