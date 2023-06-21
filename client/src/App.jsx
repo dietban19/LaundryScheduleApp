@@ -75,9 +75,7 @@ const App = () => {
 
       if (myD) {
         if (!logIn) {
-          console.log(myD);
-          console.log("JEJEJJE");
-          console.log(form);
+          console.log("");
           // setLogIn(true);
         }
       }
@@ -93,12 +91,10 @@ const App = () => {
       !form.email ||
       !form.password
     ) {
-      console.log("MYRECRS", myRecord.records);
       if (myData) {
         console.log("hello");
         setForm(myData);
       } else {
-        console.log("REFES");
         navigate("/");
       }
     }
@@ -108,14 +104,7 @@ const App = () => {
     // myRecord.fetchRecords();
     console.log("NEW RECORD IS ", myRecord.records);
   }
-  function handleTest() {
-    console.log("after", myRecord.records);
-  }
 
-  function ttest() {
-    console.log("");
-  }
-  console.log("LOGIN", logIn);
   return (
     <>
       {/* <div>
