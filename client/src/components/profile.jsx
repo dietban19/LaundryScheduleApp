@@ -11,6 +11,7 @@ export default function profile({
   storedDeviceID,
   handleClick,
   setLogIn,
+  logIn,
 }) {
   const myRecord = useRecords();
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function profile({
       const deviceIndex = updatedMatchingRecord.devices.findIndex(
         (device) => device.id === storedDeviceID
       );
-
+      console.log(deviceIndex);
       if (deviceIndex !== -1) {
         updatedMatchingRecord.devices[deviceIndex].loggedIn = false;
       }
@@ -64,8 +65,8 @@ export default function profile({
           updatedMatchingRecord,
         mr: matchingRecord,
       };
-      console.log(inputs);
-      // console.log("AFTER", matchingRecord);
+      console.log(inputs.main._id);
+      console.log("AFTER", matchingRecord);
       myRecord.toggleLog(inputs);
       handleClick();
       // console.log("after", myRecord.records);
@@ -78,9 +79,11 @@ export default function profile({
         email: "",
         password: "",
       });
+      console.log(logIn);
       setLogIn(false);
+      console.log(logIn);
       navigate("/");
-      console.log("Navigating to /");
+      // console.log("Navigating to /");
     }
   }
 

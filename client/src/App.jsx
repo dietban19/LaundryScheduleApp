@@ -147,6 +147,7 @@ const App = () => {
               setForm={setForm}
               storedDeviceID={storedDeviceID}
               setLogIn={setLogIn}
+              logIn={logIn}
             />
           }
         />
