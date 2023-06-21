@@ -2,9 +2,16 @@ import React, { useState, useEffect } from "react";
 import styles from "../styles/calendar.module.css";
 import dayjs from "dayjs";
 import Popup from "./popup";
-const Calendar = () => {
+const Calendar = ({
+  bookedDate,
+  setBookedDate,
+  showBookPopup,
+  setShowBookPopup,
+  handleBook,
+}) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+
   const [dayFirst, setDayFirst] = useState(0);
   const [dayLast, setDayLast] = useState(0);
   const [dayRange, setDayRange] = useState({
@@ -14,6 +21,12 @@ const Calendar = () => {
     dates: { dayOne: 0, dayLast: 0 },
   });
   const handleDateClick = (date) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (date < today) {
+      return;
+    }
     setSelectedDate(date);
     setShowPopup(true);
   };
@@ -70,7 +83,10 @@ const Calendar = () => {
       const isCurrentDay = i === currentDate.getDate();
       const isSelected =
         day.toDateString() === (selectedDate && selectedDate.toDateString());
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
+      const isPastDay = day < today;
       calendarDays.push(
         <div
           key={i}
@@ -80,7 +96,9 @@ const Calendar = () => {
           <div
             className={`${styles.myDay} ${
               isCurrentDay ? `${styles.currentDay}` : ""
-            } ${isSelected ? `${styles.selected}` : ""}`}
+            } ${isSelected ? `${styles.selected}` : ""} ${
+              isPastDay ? `${styles.pastDay}` : ""
+            }`}
           >
             {i}
           </div>
@@ -114,17 +132,6 @@ const Calendar = () => {
         rows.push(cells);
       }
     });
-    // // Find the index of the selected date within the calendarDays array
-    // const selectedIndex = calendarDays.findIndex(
-    //   (day) => day.props.children === selectedDate.getDate()
-    // );
-
-    // // Calculate the start and end indices for the range of dates to be displayed
-    // const startIndex = Math.max(0, selectedIndex - 3);
-    // const endIndex = Math.min(calendarDays.length - 1, selectedIndex + 3);
-
-    // // Extract the range of dates from the calendarDays array
-    // const rangeOfDates = calendarDays.slice(startIndex, endIndex + 1);
     return rows.map((row, rowIndex) => (
       <tr key={rowIndex}>
         {row.map((slot, slotIndex) => (
@@ -169,7 +176,9 @@ const Calendar = () => {
       return firstDayOfMonth.toDate();
     });
   };
-
+  function check() {
+    console.log("BOOKED", bookedDate);
+  }
   return (
     <div className={styles.calendarContainer}>
       {showPopup && (
@@ -179,9 +188,15 @@ const Calendar = () => {
             onClose={handlePopupClose}
             dayRange={dayRange}
             month={months[dayjs(selectedDate).format("M") - 1]}
+            bookedDate={bookedDate}
+            setBookedDate={setBookedDate}
+            showBookPopup={showBookPopup}
+            setShowBookPopup={setShowBookPopup}
+            handleBook={handleBook}
           />
         </div>
       )}
+      <button onClick={check}>Check FIrst</button>
       <div className={styles.headers}>
         <h2 className={styles.headers__text}>
           {selectedDate ? "Selected Date" : "Today's Date"}

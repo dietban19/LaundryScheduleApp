@@ -1,15 +1,84 @@
 .popup {
-  border: 1px solid black;
   width: 95%;
   height: 95%;
+  /* margin: 1rem; */
 }
 
 .popupContent {
-  background: red;
+  margin: 0.5rem;
+  background: var(--clr-neutral-500);
   padding: 1rem;
+  height: 90%;
+  border-radius: 1rem;
 }
 
 .popupTable {
   outline: 1px solid black;
   width: 100%;
+}
+
+.popUpBodyContainer {
+  margin: 1rem;
+
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  height: 70%;
+  gap: 1rem;
+}
+.popUpBody__header {
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: underline;
+}
+
+.bookNowButton {
+  background-color: hsl(120, 100%, 35%);
+  border: none;
+  padding: 0.75rem;
+  width: 40%;
+  border-radius: 1rem;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+}
+
+.bookingPopup {
+  position: absolute;
+  /* margin-top: 1.2rem; */
+
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
+  align-items: center;
+  background-color: rgba(112, 112, 112, 0.336);
+  /* width: 95%; */
+  height: 100%;
+  width: 100%;
+
+  bottom: 0;
+  z-index: 1;
+}
+.bookingPopup__container {
+  position: inherit;
+  border-radius: 1rem 1rem 0rem 0rem;
+  padding: 1rem;
+  background-color: var(--clr-neutral-500);
+  height: 95%;
+  width: 100%;
+  bottom: 0;
+}
+
+.bookingPopup__content {
+  background-color: green;
+  /* height: 80%; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.react-calendar__tile {
+  color: red;
 }

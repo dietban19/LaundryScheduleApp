@@ -79,8 +79,8 @@ export default function profile({
         password: "",
       });
       setLogIn(false);
-      console.log("Navigating to /");
       navigate("/");
+      console.log("Navigating to /");
     }
   }
 

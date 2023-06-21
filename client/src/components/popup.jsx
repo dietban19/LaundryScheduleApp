@@ -1,7 +1,18 @@
-import React from "react";
+import { set } from "date-fns";
+import React, { useState } from "react";
 import styles from "../styles/popupContent.module.css";
-
-const Popup = ({ selectedDate, onClose, dayRange, month }) => {
+import BookingPopup from "./bookingPopup";
+const Popup = ({
+  selectedDate,
+  onClose,
+  dayRange,
+  month,
+  bookedDate,
+  setBookedDate,
+  showBookPopup,
+  setShowBookPopup,
+  handleBook,
+}) => {
   const renderDates = () => {
     const { dayOne, dayLast } = dayRange.dates;
     const range = Array.from(
@@ -17,7 +28,7 @@ const Popup = ({ selectedDate, onClose, dayRange, month }) => {
       </tr>
     );
   };
-  console.log("DATES", dayRange);
+
   return (
     <div className={styles.popup}>
       <div className={styles.popupContent}>
@@ -39,6 +50,12 @@ const Popup = ({ selectedDate, onClose, dayRange, month }) => {
           </thead>
           <tbody>{renderDates()}</tbody>
         </table>
+        <div className={styles.popUpBodyContainer}>
+          <div className={styles.popUpBody__header}>Available</div>
+          <button className={styles.bookNowButton} onClick={handleBook}>
+            Book Now
+          </button>
+        </div>
       </div>
     </div>
   );
