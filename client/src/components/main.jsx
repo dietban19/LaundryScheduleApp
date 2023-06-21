@@ -9,11 +9,12 @@ import Calendar from "./calendar";
 function main({ form, setForm, handleLogOut }) {
   const [isLoading, setIsLoading] = useState(true);
   const records = useRecords();
-
-  useEffect(() => {
-    if (form) {
-    }
-  });
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   if ((!form, firstName)) {
+  //     navigate("/");
+  //   }
+  // });
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);

@@ -51,14 +51,12 @@
 }
 
 .calendar__day {
-  background-color: purple;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 80%;
 }
 .myDay {
-  background-color: red;
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
@@ -79,7 +77,6 @@
   outline: 1px solid black;
 }
 .tableBody tr {
-  background-color: blue;
   height: 0%;
   width: 10%;
 }

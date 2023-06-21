@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 export function useRecords() {
   const [records, setRecords] = useState([]);
-  // console.log("RECORDS", records);
 
   async function fetchRecords() {
     const url = "https://laundryapp-szsx.onrender.com/customer/";
@@ -60,7 +59,6 @@ export function useRecords() {
     }
   }
   async function toggleLog(e) {
-    console.log(e);
     await fetch(`https://laundryapp-szsx.onrender.com/customer/${e.mr._id}`, {
       method: "PATCH",
       body: JSON.stringify(e.main),
@@ -68,7 +66,6 @@ export function useRecords() {
         "Content-Type": "application/json",
       },
     });
-    console.log("e.main", e.main);
   }
 
   return { records, submitForm, fetchRecords, toggleLog };

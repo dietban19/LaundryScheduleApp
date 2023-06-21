@@ -86,25 +86,27 @@ export default function login({
         password: "",
       });
       if (matchedRecord) {
-        const updatedDevices = matchedRecord.devices.map((device) => {
-          if (device.id === storedDeviceID) {
-            return { ...device, loggedIn: true };
-          } else {
-            return device;
-          }
-        });
-
-        if (
-          !matchedRecord.devices.some((device) => device.id === storedDeviceID)
-        ) {
-          updatedDevices.push({ id: storedDeviceID, loggedIn: true });
+        const mDevices = matchedRecord.devices;
+        const matchedDevice = matchedRecord.devices.find(
+          (device) => device.id === storedDeviceID
+        );
+        if (matchedDevice) {
+          matchedDevice.loggedIn = true;
+        } else {
+          matchedRecord.devices.push({ id: storedDeviceID, loggedIn: true });
         }
 
-        matchedRecord.devices = updatedDevices;
-        console.log("matc", updatedDevices);
+        // if (
+        //   !matchedRecord.devices.some((device) => device.id === storedDeviceID)
+        // ) {
+        //   console.log("3");
+        //   console.log(updatedDevices);
+        //   updatedDevices.push({ id: storedDeviceID, loggedIn: true });
+        // }
+
         const inputs = {
           main: {
-            devices: updatedDevices,
+            devices: matchedRecord.devices,
             firstName: matchedRecord.firstName,
             lastName: matchedRecord.lastName,
             bday: matchedRecord.bday,
@@ -114,10 +116,9 @@ export default function login({
           mr: matchedRecord,
         };
         records.toggleLog(inputs);
-
+        // console.log(inputs.main);
         setLogIn(true);
         setForm(inputs.main);
-        console.log("after", form);
 
         navigate("/home");
       }
@@ -195,9 +196,7 @@ export default function login({
                   id="email"
                   placeholder="example@example.com"
                   // value={form.email}
-                  onChange={(e) =>
-                    updateForm({ email: e.target.value.toLowerCase() })
-                  }
+                  onChange={(e) => updateForm({ email: e.target.value })}
                 />
               </div>
               <span className="errInfo"></span>

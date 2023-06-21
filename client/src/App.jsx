@@ -59,43 +59,37 @@ const App = () => {
     password: "",
   });
 
-  const params = useParams();
   const navigate = useNavigate();
-  // const thisRecord = useRecords();
 
-  // const myData = myRecord.records.find(
-  //   (record) =>
-  //     record.devices.deviceID.id === storedDeviceID &&
-  //     record.devices.deviceID.loggedIn === true
-  // );
   const myData = myRecord.records.find((record) =>
     record.devices.some(
       (device) => device.id === storedDeviceID && device.loggedIn === true
     )
   );
+  console.log(myData);
+  if (myData) {
+    if (!logIn) {
+      setLogIn(true);
+    }
+  }
 
   useEffect(() => {
-    // console.log(storedDeviceID, myRecord.records);
+    console.log("HERE", logIn);
     if (
-      (!form ||
-        !form.firstName ||
-        !form.lastName ||
-        !form.bday ||
-        !form.email ||
-        !form.password) &&
-      myData
+      !form ||
+      !form.firstName ||
+      !form.lastName ||
+      !form.bday ||
+      !form.email ||
+      !form.password
     ) {
-      const isLoggedIn = myData.devices[0].loggedIn;
-      console.log(myData);
-      if (isLoggedIn) {
-        setLogIn(isLoggedIn);
-        console.log("refreshed", isLoggedIn);
+      if (logIn) {
         setForm(myData);
+      } else {
+        navigate("/");
       }
-    } else {
-      navigate("/");
     }
-  }, [myData]);
+  }, [myRecord.records, logIn]);
 
   function handleClick() {
     // myRecord.fetchRecords();
@@ -109,7 +103,7 @@ const App = () => {
     console.log("");
   }
 
-  // if
+  console.log(storedDeviceID);
   return (
     <>
       {/* <div>
