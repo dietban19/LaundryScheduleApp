@@ -104,7 +104,7 @@ const App = () => {
     // myRecord.fetchRecords();
     console.log("NEW RECORD IS ", myRecord.records);
   }
-
+  console.log("HELLOOOOO");
   return (
     <>
       {/* <div>
