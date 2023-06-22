@@ -105,6 +105,9 @@ const App = () => {
     // myRecord.fetchRecords();
     console.log("NEW RECORD IS ", myRecord.records);
   }
+  console.log("is Loading", isLoading);
+  console.log(logIn);
+  console.log(myRecord.records.length);
   return (
     <>
       {/* <div>
