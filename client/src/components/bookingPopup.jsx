@@ -21,7 +21,7 @@ function BookingPopup({ setClose, bookedDate, setBookedDate, form }) {
     const inputs = {
       main: {
         devices: matchedRecord.devices,
-        firstName: matchedRecord.firstName,
+        firstName: "TESTING THIS",
         lastName: matchedRecord.lastName,
         bday: matchedRecord.bday,
         email: matchedRecord.email,
@@ -71,9 +71,9 @@ function BookingPopup({ setClose, bookedDate, setBookedDate, form }) {
   //   }, [checkInDate]);
 
   const [currMonth, setCurrMonth] = useState(new Date());
-  console.log(
-    dayjs(startDay).format("D MM YYYY") !== dayjs(endDay).format("D MM YYYY")
-  );
+  //   console.log(
+  //     dayjs(startDay).format("D MM YYYY") !== dayjs(endDay).format("D MM YYYY")
+  //   );
   return (
     <div className={styles.bookingPopup}>
       <div className={styles.bookingPopup__container}>

@@ -57,7 +57,7 @@ const App = () => {
     bday: "",
     email: "",
     password: "",
-    dates: {},
+    dates: [],
   });
 
   const navigate = useNavigate();
@@ -105,7 +105,6 @@ const App = () => {
     // myRecord.fetchRecords();
     console.log("NEW RECORD IS ", myRecord.records);
   }
-  console.log("HELLOOOOO");
   return (
     <>
       {/* <div>

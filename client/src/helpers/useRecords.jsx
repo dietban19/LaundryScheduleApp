@@ -38,6 +38,7 @@ export function useRecords() {
   }, []);
 
   async function submitForm(newPerson, callback) {
+    console.log("SUPT", newPerson);
     try {
       const response = await fetch(
         "https://laundryapp-szsx.onrender.com/customer",
@@ -59,6 +60,7 @@ export function useRecords() {
     }
   }
   async function toggleLog(e) {
+    console.log("LOGGING INGGGGGG");
     await fetch(`https://laundryapp-szsx.onrender.com/customer/${e.mr._id}`, {
       method: "PATCH",
       body: JSON.stringify(e.main),
@@ -68,6 +70,8 @@ export function useRecords() {
     });
   }
   async function addDates(e) {
+    console.log("ADDDINDNFIANDSINSDIFBSKDJBSKDJB");
+    console.log(e);
     await fetch(`https://laundryapp-szsx.onrender.com/customer/${e.mr._id}`, {
       method: "PATCH",
       body: JSON.stringify(e.main),

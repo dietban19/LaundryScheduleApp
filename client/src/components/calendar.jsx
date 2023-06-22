@@ -41,7 +41,6 @@ const Calendar = ({
 
       const firstDay = new Date(currentYear, currentMonth, 1);
       const lastDay = new Date(currentYear, currentMonth + 1, 0);
-      console.log("last", lastDay);
 
       const startingDay = firstDay.getDay();
 

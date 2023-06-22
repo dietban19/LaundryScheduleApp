@@ -22,7 +22,6 @@ function main({ form, setForm, handleLogOut }) {
     setIsBlurred(true);
   };
   const handlePopupFalse = () => {
-    console.log("closing");
     setShowBookPopup(false);
   };
 
@@ -38,7 +37,7 @@ function main({ form, setForm, handleLogOut }) {
 
     return () => clearTimeout(loadingTimeout);
   }, []);
-  console.log("BOOK", bookedDate);
+
   return (
     <div
       className={
