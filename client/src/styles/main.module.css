@@ -4,14 +4,19 @@
 
 .mainPage {
   min-height: 100%; /*vh*/
-
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: red;
   /* padding: 1rem; */
+}
+.blur {
+  background-color: red !important;
 }
 
 .mainContent {
+  position: relative;
   background-color: var(--clr-neutral-600);
   display: flex;
   justify-content: center;

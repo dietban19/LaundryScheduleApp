@@ -13,6 +13,8 @@ export default function signup({
   handleClick,
   storedDeviceID,
   setLogIn,
+  myD,
+  setMyD,
 }) {
   const myRecord = useRecords();
   // useEffect(() => {
@@ -91,18 +93,14 @@ export default function signup({
     let x = document.querySelectorAll('[class*="error"]');
 
     if (!document.querySelectorAll('[class*="error"]').length > 0) {
+      console.log("THE FORM", form);
       const updatedForm = {
         ...form,
-        devices: {
-          ...form.devices,
-          deviceID: {
-            ...form.devices.deviceID,
-            id: storedDeviceID,
-            loggedIn: true,
-          },
-        },
+        devices: [...form.devices, { id: storedDeviceID, loggedIn: true }],
+        dates: [...form.dates, { startDay: null, endDay: null }],
       };
-      console.log("IPADATE: " + updatedForm);
+      console.log("IPADATE: ", updatedForm);
+
       setForm(updatedForm);
 
       const newPerson = { ...updatedForm };
@@ -112,6 +110,12 @@ export default function signup({
       await myRecord.submitForm(newPerson, () => {
         myRecord.fetchRecords(); // Trigger data refresh after navigation
       });
+      //   const myData = myRecord.records.find((record) =>
+      //   record.devices.some(
+      //     (device) => device.id === storedDeviceID && device.loggedIn === true
+      //   )
+      // );
+      // console.log("HERE NOW", myData)
       setLogIn(true);
       handleClick();
       navigate("/home");
@@ -129,7 +133,7 @@ export default function signup({
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   function handleGoBack() {
     setForm({
-      devices: { deviceID: { id: "", loggedIn: false } },
+      devices: [],
       firstName: "",
       lastName: "",
       bday: "",
@@ -208,7 +212,7 @@ export default function signup({
                   className="form-control"
                   id="email"
                   placeholder="example@example.com"
-                  value={form.email}
+                  value={form.email.toLowerCase()}
                   onChange={(e) => updateForm({ email: e.target.value })}
                 />
               </div>

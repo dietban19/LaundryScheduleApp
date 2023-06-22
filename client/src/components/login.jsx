@@ -10,6 +10,8 @@ export default function login({
   storedDeviceID,
   setStoredDeviceId,
   setLogIn,
+  myD,
+  setMyD,
 }) {
   const [info, setInfo] = useState({
     email: "",
@@ -75,56 +77,88 @@ export default function login({
 
     if (!document.querySelectorAll('[class*="error"]').length > 0) {
       const matchedRecord = records.records.find(
-        (record) =>
-          record.devices.deviceID.id === storedDeviceID &&
-          record.email === info.email
+        (record) => record.email === info.email
       );
-      console.log("MATCHED RECORD", matchedRecord);
-      console.log(storedDeviceID, info);
-      console.log("before match: " + form);
-
       setForm({
-        devices: { deviceID: { id: "", loggedIn: false } },
+        devices: [],
         firstName: "",
         lastName: "",
         bday: "",
         email: "",
         password: "",
       });
-      console.log("1");
-      console.log("MATCHED RECORD", matchedRecord);
-      const updatedDevices = {
-        ...matchedRecord.devices,
-        deviceID: {
-          ...matchedRecord.devices.deviceID,
-          loggedIn: true,
-        },
-      };
-      console.log("2");
-      const inputs = {
-        main: {
-          devices: updatedDevices,
-          firstName: matchedRecord.firstName,
-          lastName: matchedRecord.lastName,
-          bday: matchedRecord.bday,
-          email: matchedRecord.email,
-          password: matchedRecord.password,
-        },
-        mr: matchedRecord,
-      };
-      console.log("3");
+      if (matchedRecord) {
+        const mDevices = matchedRecord.devices;
+        const matchedDevice = matchedRecord.devices.find(
+          (device) => device.id === storedDeviceID
+        );
+        if (matchedDevice) {
+          matchedDevice.loggedIn = true;
+        } else {
+          matchedRecord.devices.push({ id: storedDeviceID, loggedIn: true });
+        }
 
-      console.log("before");
-      console.log(form);
-      console.log("inputs.main", inputs.main);
-      records.toggleLog(inputs);
+        // if (
+        //   !matchedRecord.devices.some((device) => device.id === storedDeviceID)
+        // ) {
+        //   console.log("3");
+        //   console.log(updatedDevices);
+        //   updatedDevices.push({ id: storedDeviceID, loggedIn: true });
+        // }
 
-      setLogIn(true);
-      setForm(inputs.main);
-      console.log("after", form);
+        const inputs = {
+          main: {
+            devices: matchedRecord.devices,
+            firstName: matchedRecord.firstName,
+            lastName: matchedRecord.lastName,
+            bday: matchedRecord.bday,
+            email: matchedRecord.email,
+            password: matchedRecord.password,
+          },
+          mr: matchedRecord,
+        };
+        records.toggleLog(inputs);
+        const myData = records.records.find((record) =>
+          record.devices.some(
+            (device) => device.id === storedDeviceID && device.loggedIn === true
+          )
+        );
+        console.log("HERE NOW", myData);
+        setMyD(myData);
+        setLogIn(true);
+        setForm(inputs.main);
 
-      navigate("/home");
+        navigate("/home");
+      }
     }
+
+    // const updatedDevices = {
+    //   ...matchedRecord,
+    //   devices:[
+    //     ...matchedRecord.devices,
+    //     id:
+    //       matchedRecord.devices.deviceID.id === storedDeviceID
+    //         ? matchedRecord.devices.deviceID.id
+    //         : storedDeviceID,
+    //     loggedIn: true,
+    //   ]
+
+    // };
+    // const updatedDevices = {
+    //   ...matchedRecord.devices,
+    //   deviceID:
+    //     matchedRecord.devices.deviceID.id === storedDeviceID
+    //       ? { ...matchedRecord.devices.deviceID, loggedIn: true }
+    //       : { ...matchedRecord.devices, id: storedDeviceID, loggedIn: true },
+    // };
+    // const updatedDevices = {
+    //   ...matchedRecord.devices,
+    // };
+
+    // updatedDevices.deviceID = {
+    //   id: storedDeviceID,
+    //   loggedIn: true,
+    // };
 
     // setForm({ firstName: "", lastName: "", bday: "", email: "", password: "" });
     // navigate("/");
@@ -135,7 +169,7 @@ export default function login({
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   function handleGoBack() {
     setForm({
-      devices: { deviceID: { id: "", loggedIn: false } },
+      devices: [],
       firstName: "",
       lastName: "",
       bday: "",

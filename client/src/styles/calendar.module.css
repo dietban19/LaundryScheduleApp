@@ -1,15 +1,17 @@
 .calendarContainer {
+  overflow: auto;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
-  position: relative;
+  /* position: relative; */
 }
 
 .headers {
   padding: 1rem;
   display: flex;
+  display: -webkit-flex;
   flex-direction: column;
   gap: 0px;
   width: 100%;
@@ -42,22 +44,21 @@
 
 .calendar {
   border-collapse: collapse;
-  width: 100%;
+  width: 90%;
+
   height: 100%;
+  /* margin: 0.5rem; */
 }
 
 .calendar__day {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  /* border: 1px solid black; */
-  padding: 0.5rem;
+  height: 80%;
 }
 .myDay {
-  /* background-color: red; */
-  width: 50px;
-  height: 50px;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,35 +72,43 @@
   color: rgb(227, 227, 227);
 }
 .headerRow th {
-  /* background-color: ; */
   padding: 0rem;
   width: 10%;
+  outline: 1px solid black;
 }
 .tableBody tr {
-  /* background-color: green; */
-  padding: 1rem;
+  height: 0%;
   width: 10%;
 }
 .tableBody tr td {
-  /* background-color: blue; */
-  /* border: 1px solid black; */
-  /* padding: 0.5rem; */
+  text-align: center;
+}
+.popup {
+  position: absolute;
+  background: white;
+  display: grid;
+  place-items: center;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.48);
 }
 td {
   text-align: center;
 }
+.headers__dates {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-.popup {
-  position: absolute;
-  background: white;
-  /* top: 50%;
-  left: 50%; */
+.dataSOMETHING {
+  height: 0%;
+}
 
-  display: grid;
-  place-items: center;
-  /* transform: translate(-50%, -50%); */
-  width: 100%;
-  height: 100%;
-  margin: 1rem;
-  background: red;
+.pastDay {
+  text-decoration: line-through;
+  opacity: none;
+  color: rgba(72, 72, 72, 0.48);
+  pointer-events: none;
 }

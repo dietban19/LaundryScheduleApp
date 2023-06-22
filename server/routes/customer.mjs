@@ -25,6 +25,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   let newDocument = {
     devices: req.body.devices,
+    dates: req.body.dates,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     bday: req.body.bday,
@@ -38,10 +39,12 @@ router.post("/", async (req, res) => {
 
 // This section will help you update a customer by id.
 router.patch("/:id", async (req, res) => {
+  console.log(req.body);
   const query = { _id: new ObjectId(req.params.id) };
   const updates = {
     $set: {
       devices: req.body.devices,
+      dates: req.body.dates,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       bday: req.body.bday,
@@ -49,7 +52,7 @@ router.patch("/:id", async (req, res) => {
       password: req.body.password,
     },
   };
-
+  console.log(updates);
   let collection = await db.collection("customers");
   let result = await collection.updateOne(query, updates);
 

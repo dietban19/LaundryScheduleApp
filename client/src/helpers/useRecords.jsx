@@ -2,23 +2,34 @@ import { useState, useEffect } from "react";
 
 export function useRecords() {
   const [records, setRecords] = useState([]);
-  // console.log("RECORDS", records);
 
   async function fetchRecords() {
+    const url = "https://laundryapp-szsx.onrender.com/customer/";
+    const fallbackUrl = "http://localhost:5050";
     try {
-      const response = await fetch(
-        "https://laundryapp-szsx.onrender.com/customer/"
-      );
+      const response = await fetch(url);
       // console.log("Fetching");
       if (!response.ok) {
-        throw new Error(`An error occurred: ${response.statusText}`);
+        // throw new Error(`An error occurred: ${response.statusText}`);
       }
 
       const data = await response.json();
-      // console.log(data);
       setRecords([...data]);
     } catch (error) {
+      console.error(error);
       window.alert(error.message);
+      try {
+        const fallbackResponse = await fetch(fallbackUrl);
+        if (!fallbackResponse.ok) {
+          throw new Error(`An error occurred: ${fallbackResponse.statusText}`);
+        }
+
+        const fallbackData = await fallbackResponse.json();
+        setRecords([...fallbackData]);
+      } catch (fallbackError) {
+        console.error(fallbackError);
+        window.alert(`Both URLs failed. Error: ${fallbackError.message}`);
+      }
     }
   }
   useEffect(() => {
@@ -27,6 +38,7 @@ export function useRecords() {
   }, []);
 
   async function submitForm(newPerson, callback) {
+    console.log("SUPT", newPerson);
     try {
       const response = await fetch(
         "https://laundryapp-szsx.onrender.com/customer",
@@ -48,6 +60,17 @@ export function useRecords() {
     }
   }
   async function toggleLog(e) {
+    console.log("LOGGING INGGGGGG");
+    await fetch(`https://laundryapp-szsx.onrender.com/customer/${e.mr._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(e.main),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+  async function addDates(e) {
+    console.log("ADDDINDNFIANDSINSDIFBSKDJBSKDJB");
     console.log(e);
     await fetch(`https://laundryapp-szsx.onrender.com/customer/${e.mr._id}`, {
       method: "PATCH",
@@ -56,8 +79,7 @@ export function useRecords() {
         "Content-Type": "application/json",
       },
     });
-    console.log("e.main", e.main);
   }
 
-  return { records, submitForm, fetchRecords, toggleLog };
+  return { records, submitForm, fetchRecords, toggleLog, addDates };
 }

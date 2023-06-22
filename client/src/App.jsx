@@ -24,11 +24,22 @@ devices:{deviceID:{id:123, loggedIn:true},{id:432, loggedIn:false} }
 */
 
 const App = () => {
-  const [logIn, setLogIn] = useState(true);
+  const [logIn, setLogIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const myRecord = useRecords();
+  // useEffect(() => {
+  //   myRecord.fetchRecords();
+  // }, []);
+
   useEffect(() => {
-    myRecord.fetchRecords();
+    setIsLoading(true);
+
+    myRecord.fetchRecords().then(() => {
+      setIsLoading(false);
+    });
   }, []);
+
   const getDeviceId = () => {
     let deviceId = localStorage.getItem("deviceId");
     if (!deviceId) {
@@ -38,61 +49,62 @@ const App = () => {
     return deviceId;
   };
   const storedDeviceID = getDeviceId();
-
+  const [myD, setMyD] = useState("");
   const [form, setForm] = useState({
-    devices: { deviceID: { id: "", loggedIn: false } },
+    devices: [],
     firstName: "",
     lastName: "",
     bday: "",
     email: "",
     password: "",
+    dates: [],
   });
 
-  const params = useParams();
   const navigate = useNavigate();
-  const thisRecord = useRecords();
-
-  const myData = myRecord.records.find(
-    (record) =>
-      record.devices.deviceID.id === storedDeviceID &&
-      record.devices.deviceID.loggedIn === true
+  const myData = myRecord.records.find((record) =>
+    record.devices.some(
+      (device) => device.id === storedDeviceID && device.loggedIn === true
+    )
   );
+  // console.log(myData);
+  useEffect(() => {
+    const delay = 1000; // Adjust the delay time as needed
+    setIsLoading(true);
+    setTimeout(() => {
+      myRecord.fetchRecords();
+      setIsLoading(false);
+
+      if (myD) {
+        if (!logIn) {
+          console.log("");
+          // setLogIn(true);
+        }
+      }
+    }, delay);
+  }, [logIn]);
 
   useEffect(() => {
-    // console.log(storedDeviceID, myRecord.records);
     if (
-      (!form ||
-        !form.firstName ||
-        !form.lastName ||
-        !form.bday ||
-        !form.email ||
-        !form.password) &&
-      myData
+      !form ||
+      !form.firstName ||
+      !form.lastName ||
+      !form.bday ||
+      !form.email ||
+      !form.password
     ) {
-      const isLoggedIn = myData.devices.deviceID.loggedIn;
-
-      if (isLoggedIn) {
-        // setLogIn(isLoggedIn);
-        console.log("refreshed", isLoggedIn);
+      if (myData) {
+        console.log("hello");
         setForm(myData);
+      } else {
+        navigate("/");
       }
-    } else {
-      navigate("/");
     }
-  }, [myData]);
+  }, [myRecord.records, logIn]);
 
   function handleClick() {
     // myRecord.fetchRecords();
     console.log("NEW RECORD IS ", myRecord.records);
   }
-  function handleTest() {
-    console.log("after", myRecord.records);
-  }
-
-  function ttest() {
-    console.log("");
-  }
-
   return (
     <>
       {/* <div>
@@ -106,9 +118,13 @@ const App = () => {
         <Route
           path="/*"
           element={
-            <Navigate
-              to={logIn && myRecord.records.length > 0 ? "/home" : "/welcome"}
-            />
+            isLoading ? (
+              <Loading /> // Replace 'Loading' with the actual loading component
+            ) : (
+              <Navigate
+                to={logIn && myRecord.records.length > 0 ? "/home" : "/welcome"}
+              />
+            )
           }
         />
 
@@ -121,6 +137,8 @@ const App = () => {
               handleClick={handleClick}
               storedDeviceID={storedDeviceID}
               setLogIn={setLogIn}
+              myD={myD}
+              setMyD={setMyD}
             />
           }
         />
@@ -132,6 +150,9 @@ const App = () => {
               setForm={setForm}
               storedDeviceID={storedDeviceID}
               setLogIn={setLogIn}
+              logIn={logIn}
+              myD={myD}
+              setMyD={setMyD}
             />
           }
         />
@@ -146,6 +167,8 @@ const App = () => {
               storedDeviceID={storedDeviceID}
               handleClick={handleClick}
               setLogIn={setLogIn}
+              myD={myD}
+              setMyD={setMyD}
             />
           }
         />

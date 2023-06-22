@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "./navbar";
 import styles from "../styles/main.module.css";
 import pStyles from "../styles/pStyles.module.css";
@@ -11,63 +11,75 @@ export default function profile({
   storedDeviceID,
   handleClick,
   setLogIn,
+  logIn,
+  myD,
+  setMyD,
 }) {
   const myRecord = useRecords();
   const navigate = useNavigate();
   const matchingRecord = myRecord.records.find(
     (record) =>
-      record.devices.deviceID.id === storedDeviceID &&
-      record.email === form.email
+      record.devices.id === storedDeviceID && record.email === form.email
   );
 
+  const reload = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  };
   function handleLogOut() {
     const matchingRecord = myRecord.records.find(
       (record) =>
-        record.devices.deviceID.id === storedDeviceID &&
+        record.devices.some((device) => device.id === storedDeviceID) &&
         record.email === form.email
     );
+
+    console.log(matchingRecord);
     var confirmLogout = window.confirm("Are you sure you want to log out?");
     const getRecords = myRecord.records;
-    // console.log(getRecords);
-    // Find the record that matches the storedDeviceID
-    console.log("LOGOUT = ", confirmLogout);
-    if (confirmLogout && matchingRecord) {
-      // Update the matching record to set loggedIn to false
 
-      const updatedDevices = {
-        ...matchingRecord.devices,
-        deviceID: {
-          ...matchingRecord.devices.deviceID,
-          loggedIn: false,
-        },
-      };
+    console.log("LOGOUT = ", confirmLogout);
+    console.log("BEFORE", myRecord.records);
+    if (confirmLogout && matchingRecord) {
+      const updatedMatchingRecord = { ...matchingRecord }; // Create a shallow copy
+
+      const deviceIndex = updatedMatchingRecord.devices.findIndex(
+        (device) => device.id === storedDeviceID
+      );
+      console.log(deviceIndex);
+      if (deviceIndex !== -1) {
+        updatedMatchingRecord.devices[deviceIndex].loggedIn = false;
+      }
+      console.log(updatedMatchingRecord);
       const inputs = {
-        main: {
-          devices: updatedDevices,
-          firstName: matchingRecord.firstName,
-          lastName: matchingRecord.lastName,
-          bday: matchingRecord.bday,
-          email: matchingRecord.email,
-          password: matchingRecord.password,
-        },
+        main: updatedMatchingRecord,
         mr: matchingRecord,
       };
-      // console.log("AFTER", matchingRecord);
+
       myRecord.toggleLog(inputs);
       handleClick();
-      // console.log("after", myRecord.records);
+      setForm({
+        devices: [],
+        firstName: "",
+        lastName: "",
+        bday: "",
+        email: "",
+        password: "",
+      });
+
+      setLogIn(false);
+
+      const myData = myRecord.records.find((record) =>
+        record.devices.some(
+          (device) => device.id === storedDeviceID && device.loggedIn === true
+        )
+      );
+      console.log("AFTER", myRecord.records, myData);
+
+      setMyD(myData);
+
+      reload();
     }
-    console.log("CLEARING");
-    setForm({
-      devices: { deviceID: { id: "", loggedIn: true } },
-      firstName: "",
-      lastName: "",
-      bday: "",
-      email: "",
-      password: "",
-    });
-    setLogIn(false);
-    navigate("/");
   }
 
   return (
