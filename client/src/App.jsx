@@ -57,6 +57,7 @@ const App = () => {
     bday: "",
     email: "",
     password: "",
+    dates: {},
   });
 
   const navigate = useNavigate();

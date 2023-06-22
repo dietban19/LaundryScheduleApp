@@ -16,6 +16,7 @@ function main({ form, setForm, handleLogOut }) {
   const records = useRecords();
   const navigate = useNavigate();
   const [showBookPopup, setShowBookPopup] = useState(false);
+
   const handleBook = () => {
     setShowBookPopup(true);
     setIsBlurred(true);
@@ -37,7 +38,7 @@ function main({ form, setForm, handleLogOut }) {
 
     return () => clearTimeout(loadingTimeout);
   }, []);
-
+  console.log("BOOK", bookedDate);
   return (
     <div
       className={
@@ -49,6 +50,7 @@ function main({ form, setForm, handleLogOut }) {
           setClose={handlePopupFalse}
           bookedDate={bookedDate}
           setBookedDate={setBookedDate}
+          form={form}
         />
       )}
       {/* {!form.firstName ? <div className={styles.loading}></div> : null} */}

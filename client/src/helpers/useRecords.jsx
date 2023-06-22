@@ -67,6 +67,15 @@ export function useRecords() {
       },
     });
   }
+  async function addDates(e) {
+    await fetch(`https://laundryapp-szsx.onrender.com/customer/${e.mr._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(e.main),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 
-  return { records, submitForm, fetchRecords, toggleLog };
+  return { records, submitForm, fetchRecords, toggleLog, addDates };
 }

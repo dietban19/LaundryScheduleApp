@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
     bday: req.body.bday,
     email: req.body.email,
     password: req.body.password,
+    dates: req.body.dates,
   };
   let collection = await db.collection("customers");
   let result = await collection.insertOne(newDocument);
@@ -47,6 +48,7 @@ router.patch("/:id", async (req, res) => {
       bday: req.body.bday,
       email: req.body.email,
       password: req.body.password,
+      dates: req.body.dates,
     },
   };
   console.log(updates);
