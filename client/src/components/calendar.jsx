@@ -10,8 +10,9 @@ const Calendar = ({
   handleBook,
   filteredArray,
   bookedUsers,
+  selectedDate,
+  setSelectedDate,
 }) => {
-  const [selectedDate, setSelectedDate] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
   const [dayFirst, setDayFirst] = useState(0);
@@ -33,8 +34,10 @@ const Calendar = ({
       return;
     }
     setSelectedDate(date);
+
     setShowPopup(true);
   };
+
   const handlePopupClose = () => {
     setShowPopup(false);
   };
@@ -113,8 +116,8 @@ const Calendar = ({
             className={`${styles.myDay} 
              ${isSelected ? styles.selected : ""} 
              ${isPastDay ? `${styles.pastDay}` : ""}
-             ${isIncluded ? styles.booked : ""}
-             ${userDatas ? styles.booked : ""}
+             ${isIncluded || userDatas ? styles.booked : ""}
+             ${isTodays ? styles.todays : ""}
              
 
              `}
@@ -230,7 +233,7 @@ const Calendar = ({
           />
         </div>
       )}
-      <button onClick={check}>Check FIrst</button>
+
       <div className={styles.headers}>
         <h2 className={styles.headers__text}>
           {selectedDate ? "Selected Date" : "Today's Date"}

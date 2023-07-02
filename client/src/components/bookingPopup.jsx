@@ -13,11 +13,13 @@ function BookingPopup({
   setBookedDate,
   form,
   bookedUsers,
+  selectedDate,
 }) {
   const [startDay, setStartDay] = useState(null);
   const [endDay, setEndDay] = useState(null);
   const [disabledDates, setDisabledDates] = useState([]);
   const myRecord = useRecords();
+  console.log("DATEEE", selectedDate);
   useEffect(() => {
     const formattedDisabledDates = bookedUsers.map((dateObj) => ({
       start: dayjs(dateObj.dates.startDay).toDate(),
@@ -56,48 +58,9 @@ function BookingPopup({
     console.log("DATA", inputs);
     setClose();
   }
-  //   function check() {}
-  //   function handleChange() {
-  //     // console.log("DATE", e.add(1, "month").endOf("month").toDate());
-  //     // setNextMonth(e.add(1, "month").endOf("month").toDate());
-  //   }
-  //   let selectRange1 = checkInDate !== null;
-  //   let selectRange2 = checkOutDate !== null;
-  //   const handleCheckInChange = (date) => {
-  //     if (checkOutDate && date > checkOutDate) {
-  //       setCheckOutDate(null); // Reset check-out date if new check-in date is later
-  //     }
-  //     // if (checkOutDate) {
-  //     //   date[1] = checkOutDate;
-  //     // }
 
-  //     setCheckInDate(date);
-  //   };
-
-  //   const handleCheckOutChange = (date) => {
-  //     if (checkInDate && !Array.isArray(checkInDate)) {
-  //       setCheckInDate([startDay, date]);
-  //     } else if (Array.isArray(date)) {
-  //       setCheckInDate(null);
-  //       setCheckOutDate(date);
-  //     } else {
-  //       setCheckOutDate(date);
-  //     }
-  //   };
-  //   useEffect(() => {
-  //     console.log("23948534");
-  //     if (!Array.isArray(checkInDate)) {
-  //       console.log("changing");
-  //       setStartDay(checkInDate);
-  //     }
-  //   }, [checkInDate]);
-
-  const [currMonth, setCurrMonth] = useState(new Date());
-  //   console.log(
-  //     dayjs(startDay).format("D MM YYYY") !== dayjs(endDay).format("D MM YYYY")
-  //   );
   function test() {
-    console.log(disabledDates);
+    console.log(selectedDate);
   }
   return (
     <div className={styles.bookingPopup}>
@@ -110,7 +73,7 @@ function BookingPopup({
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Start Date"
-                value={startDay}
+                value={startDay || dayjs(selectedDate)}
                 onChange={(newValue) => setStartDay(newValue)}
                 disablePast
                 shouldDisableDate={(date) =>

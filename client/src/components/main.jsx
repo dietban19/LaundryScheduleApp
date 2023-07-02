@@ -11,6 +11,7 @@ function main({ form, setForm, handleLogOut }) {
     startDate: "",
     endDate: "",
   });
+  const [selectedDate, setSelectedDate] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isBlurred, setIsBlurred] = useState(false);
   const records = useRecords();
@@ -50,6 +51,7 @@ function main({ form, setForm, handleLogOut }) {
   function handleTest() {
     console.log(bookedUsers);
   }
+
   return (
     <div
       className={
@@ -63,11 +65,11 @@ function main({ form, setForm, handleLogOut }) {
           setBookedDate={setBookedDate}
           form={form}
           bookedUsers={bookedUsers}
+          selectedDate={selectedDate}
         />
       )}
       {/* {!form.firstName ? <div className={styles.loading}></div> : null} */}
       <div className={styles.mainContent}>
-        <button onClick={handleTest}>Button</button>
         <div className={styles.mainHeader}>Welcome, {form.firstName} </div>
         <div className={styles.mainCalendar}>
           <Calendar
@@ -78,6 +80,8 @@ function main({ form, setForm, handleLogOut }) {
             handleBook={handleBook}
             // filteredArray={filteredArray}
             bookedUsers={bookedUsers}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
           />
         </div>
       </div>
