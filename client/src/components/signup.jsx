@@ -25,6 +25,7 @@ export default function signup({
   const navigate = useNavigate();
   if (form && location.pathname === "/signup") {
     console.log("THERE IS FORM");
+    console.log("!@#$");
     navigate("/home");
   }
   // These methods will update the state properties.

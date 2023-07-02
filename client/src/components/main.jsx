@@ -27,6 +27,7 @@ function main({ form, setForm, handleLogOut }) {
 
   useEffect(() => {
     if (!form.firstName) {
+      console.log("NAVIGATIONSGSSS");
       navigate("/");
     }
   });

@@ -96,6 +96,7 @@ const App = () => {
         console.log("hello");
         setForm(myData);
       } else {
+        console.log("app");
         navigate("/");
       }
     }
@@ -114,17 +115,16 @@ const App = () => {
   );
   return (
     <>
-      <div className="hello">Hello</div>
       {/* <div>
         {!form.firstName ? <div className={styles.loading}></div> : null}
       </div> */}
-      {/* <Routes>
+      <Routes>
         <Route
           path="/welcome"
           element={<Welcome form={form} setForm={setForm} />}
         />
         <Route
-          path="/*"
+          path="*"
           element={
             isLoading ? (
               <Loading /> // Replace 'Loading' with the actual loading component
@@ -180,7 +180,7 @@ const App = () => {
             />
           }
         />
-      </Routes> */}
+      </Routes>
     </>
   );
 };
