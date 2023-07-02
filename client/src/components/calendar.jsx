@@ -8,6 +8,8 @@ const Calendar = ({
   showBookPopup,
   setShowBookPopup,
   handleBook,
+  filteredArray,
+  bookedUsers,
 }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -20,11 +22,14 @@ const Calendar = ({
     lastDay: 0,
     dates: { dayOne: 0, dayLast: 0 },
   });
-  const handleDateClick = (date) => {
+  const handleDateClick = (date, isIncluded, userDatas) => {
+    const isSelecteds =
+      date.toDateString() === (selectedDate && selectedDate.toDateString());
+    console.log(isSelecteds);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (date < today) {
+    if (date < today || isIncluded || userDatas) {
       return;
     }
     setSelectedDate(date);
@@ -79,25 +84,40 @@ const Calendar = ({
 
     for (let i = 1; i <= daysInMonth; i++) {
       const day = new Date(currentYear, currentMonth, i);
-      const isCurrentDay = i === currentDate.getDate();
+
       const isSelected =
         day.toDateString() === (selectedDate && selectedDate.toDateString());
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-
+      // const dayss = new Date();
       const isPastDay = day < today;
+      // const thisday = today.getTime() === dayss.getTime();
+      const isTodays = day.getTime() === today.getTime();
+      const isIncluded = bookedUsers.some((customer) => {
+        const startDay = new Date(customer.dates.startDay);
+        const endDay = new Date(customer.dates.endDay);
+        return day >= startDay && day <= endDay;
+      });
+      const userDatas =
+        day >= new Date(bookedDate.startDate) &&
+        day <= new Date(bookedDate.endDate);
+      // day.toString() === bookedDate.endDate.toString();
+
       calendarDays.push(
         <div
           key={i}
           className={styles.calendar__day}
-          onClick={() => handleDateClick(day)}
+          onClick={() => handleDateClick(day, isIncluded, userDatas)}
         >
           <div
-            className={`${styles.myDay} ${
-              isCurrentDay ? `${styles.currentDay}` : ""
-            } ${isSelected ? `${styles.selected}` : ""} ${
-              isPastDay ? `${styles.pastDay}` : ""
-            }`}
+            className={`${styles.myDay} 
+             ${isSelected ? styles.selected : ""} 
+             ${isPastDay ? `${styles.pastDay}` : ""}
+             ${isIncluded ? styles.booked : ""}
+             ${userDatas ? styles.booked : ""}
+             
+
+             `}
           >
             {i}
           </div>
@@ -176,8 +196,22 @@ const Calendar = ({
     });
   };
   function check() {
-    console.log("BOOKED", bookedDate);
+    const currentDate = selectedDate ? selectedDate : new Date();
+
+    const currentMonth = currentDate.getMonth();
+    const currentYear = currentDate.getFullYear();
+    const day = new Date(currentYear, currentMonth, 7);
+    const userDatas =
+      day.toString() >= bookedDate.startDate.toString() &&
+      day <= bookedDate.endDate.toString();
+    // console.log(day, bookedDate.startDate, bookedDate.endDate);
+    console.log(
+      day >= new Date(bookedDate.startDate)
+      //
+      // bookedDate.startDate.toLocaleDateString()
+    );
   }
+
   return (
     <div className={styles.calendarContainer}>
       {showPopup && (

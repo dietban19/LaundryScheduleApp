@@ -11,22 +11,30 @@ function BookingPopup({ setClose, bookedDate, setBookedDate, form }) {
   const [startDay, setStartDay] = useState(null);
   const [endDay, setEndDay] = useState(null);
   const myRecord = useRecords();
+
   function handleSubmit() {
     const matchedRecord = myRecord.records.find(
       (record) => record.email === form.email
     );
-    console.log("start", startDay);
+    console.log("start", startDay.$d);
     console.log("end", endDay);
-    setBookedDate(startDay, endDay);
+    setBookedDate({
+      startDate: startDay.$d.toString(),
+      endDate: endDay.$d.toString(),
+    });
+    console.log("BOOKEDDATE", bookedDate);
     const inputs = {
       main: {
         devices: matchedRecord.devices,
-        firstName: "TESTING THIS",
+        firstName: matchedRecord.firstName,
         lastName: matchedRecord.lastName,
         bday: matchedRecord.bday,
         email: matchedRecord.email,
         password: matchedRecord.password,
-        dates: { startDay: startDay, endDay: endDay },
+        dates: {
+          startDay: startDay.$d.toString(),
+          endDay: endDay.$d.toString(),
+        },
       },
       mr: matchedRecord,
     };
@@ -84,13 +92,13 @@ function BookingPopup({ setClose, bookedDate, setBookedDate, form }) {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Start Date"
-                value={dayjs(startDay)}
+                value={startDay}
                 onChange={(newValue) => setStartDay(newValue)}
                 disablePast
               />
               <DatePicker
                 label="End Date"
-                value={dayjs(endDay)}
+                value={endDay}
                 onChange={(newValue) => setEndDay(newValue)}
                 disablePast
                 minDate={dayjs(startDay).add(1, "day")}

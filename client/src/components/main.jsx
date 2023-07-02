@@ -37,7 +37,18 @@ function main({ form, setForm, handleLogOut }) {
 
     return () => clearTimeout(loadingTimeout);
   }, []);
+  const bookedUsers = records.records.filter(
+    (customer) => customer.dates.startDay !== "" && customer.dates.endDay !== ""
+    // && customer.dates.endDay !== ""
+  );
+  // const filteredArray = existingDates.filter(
+  //   ({ id, dates }) => id !== ""
+  //   // && dates !==
+  // );
 
+  function handleTest() {
+    console.log(bookedUsers);
+  }
   return (
     <div
       className={
@@ -54,6 +65,7 @@ function main({ form, setForm, handleLogOut }) {
       )}
       {/* {!form.firstName ? <div className={styles.loading}></div> : null} */}
       <div className={styles.mainContent}>
+        <button onClick={handleTest}>Button</button>
         <div className={styles.mainHeader}>Welcome, {form.firstName} </div>
         <div className={styles.mainCalendar}>
           <Calendar
@@ -62,6 +74,8 @@ function main({ form, setForm, handleLogOut }) {
             showBookPopup={showBookPopup}
             setShowBookPopup={setShowBookPopup}
             handleBook={handleBook}
+            // filteredArray={filteredArray}
+            bookedUsers={bookedUsers}
           />
         </div>
       </div>

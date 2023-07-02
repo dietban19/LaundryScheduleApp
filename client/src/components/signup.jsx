@@ -97,7 +97,7 @@ export default function signup({
       const updatedForm = {
         ...form,
         devices: [...form.devices, { id: storedDeviceID, loggedIn: true }],
-        dates: [...form.dates, { startDay: null, endDay: null }],
+        dates: { startDay: "", endDay: "" },
       };
       console.log("IPADATE: ", updatedForm);
 
