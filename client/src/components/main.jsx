@@ -62,6 +62,7 @@ function main({ form, setForm, handleLogOut }) {
           bookedDate={bookedDate}
           setBookedDate={setBookedDate}
           form={form}
+          bookedUsers={bookedUsers}
         />
       )}
       {/* {!form.firstName ? <div className={styles.loading}></div> : null} */}

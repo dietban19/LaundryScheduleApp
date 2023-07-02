@@ -210,6 +210,7 @@ const Calendar = ({
       //
       // bookedDate.startDate.toLocaleDateString()
     );
+    console.log(bookedUsers);
   }
 
   return (
