@@ -97,7 +97,7 @@ const App = () => {
         setForm(myData);
       } else {
         console.log("app");
-        navigate("/");
+        navigate("/teeee");
       }
     }
   }, [myRecord.records, logIn]);
