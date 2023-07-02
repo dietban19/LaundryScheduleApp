@@ -114,10 +114,11 @@ const App = () => {
   );
   return (
     <>
+      <div className="hello">Hello</div>
       {/* <div>
         {!form.firstName ? <div className={styles.loading}></div> : null}
       </div> */}
-      <Routes>
+      {/* <Routes>
         <Route
           path="/welcome"
           element={<Welcome form={form} setForm={setForm} />}
@@ -179,7 +180,7 @@ const App = () => {
             />
           }
         />
-      </Routes>
+      </Routes> */}
     </>
   );
 };
