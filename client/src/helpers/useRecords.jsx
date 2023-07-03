@@ -69,6 +69,15 @@ export function useRecords() {
       },
     });
   }
+  async function toggleLogIn(e) {
+    await fetch(`https://laundryapp-szsx.onrender.com/customer/${e.mr._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(e.mr),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
   async function addDates(e) {
     console.log("ADDDINDNFIANDSINSDIFBSKDJBSKDJB");
     console.log(e);
@@ -81,5 +90,12 @@ export function useRecords() {
     });
   }
 
-  return { records, submitForm, fetchRecords, toggleLog, addDates };
+  return {
+    records,
+    submitForm,
+    fetchRecords,
+    toggleLog,
+    addDates,
+    toggleLogIn,
+  };
 }

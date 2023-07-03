@@ -26,7 +26,7 @@ devices:{deviceID:{id:123, loggedIn:true},{id:432, loggedIn:false} }
 const App = () => {
   const [logIn, setLogIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [userRecord, setUserRecord] = useState();
   const myRecord = useRecords();
   // useEffect(() => {
   //   myRecord.fetchRecords();
@@ -59,6 +59,33 @@ const App = () => {
     password: "",
     dates: "",
   });
+  const [isReloaded, setIsReloaded] = useState(true);
+  async function asyncFunc() {
+    await myRecord.fetchRecords();
+    const myRec = myRecord;
+    console.log(myRec);
+    setUserRecord(myRec);
+  }
+  useEffect(() => {
+    if (isReloaded) {
+      console.log("Page was reloaded");
+
+      setUserRecord(myRecord);
+
+      setIsReloaded(false);
+      // console.log(userRecord); // Set the state to false so that subsequent updates don't trigger this condition
+    } else {
+      console.log("Component updated");
+      setUserRecord(myRecord);
+    }
+  }, [isReloaded]);
+
+  // useEffect(() => {
+  //   if (isReloaded) {
+  //     asyncFunc();
+  //   }
+  //   console.log("RECORD", userRecord);
+  // }, []);
 
   const navigate = useNavigate();
   const myData = myRecord.records.find((record) =>
@@ -66,7 +93,7 @@ const App = () => {
       (device) => device.id === storedDeviceID && device.loggedIn === true
     )
   );
-  // console.log(myData);
+
   useEffect(() => {
     const delay = 1000; // Adjust the delay time as needed
     setIsLoading(true);
@@ -91,13 +118,15 @@ const App = () => {
       !form.bday ||
       !form.email ||
       !form.password
+      //    &&
+      // logIn
     ) {
       if (myData) {
         console.log("hello");
         setForm(myData);
       } else {
         console.log("app");
-        // navigate("/teeee");
+        navigate("/");
       }
     }
   }, [myRecord.records, logIn]);
@@ -106,13 +135,13 @@ const App = () => {
     // myRecord.fetchRecords();
     console.log("NEW RECORD IS ", myRecord.records);
   }
-  console.log(
-    isLoading
-      ? "Loading"
-      : logIn && myRecord.records.length > 0
-      ? "home"
-      : "welcome"
-  );
+
+  console.log("ORRR", myRecord);
+  // console.log("USERECR", userRecord);
+
+  useEffect(() => {
+    setUserRecord(myRecord);
+  }, [myRecord.records]);
   return (
     <>
       {/* <div>
@@ -147,6 +176,8 @@ const App = () => {
               setLogIn={setLogIn}
               myD={myD}
               setMyD={setMyD}
+              userRecord={userRecord}
+              setUserRecord={setUserRecord}
             />
           }
         />
@@ -161,11 +192,23 @@ const App = () => {
               logIn={logIn}
               myD={myD}
               setMyD={setMyD}
+              userRecord={userRecord}
+              setUserRecord={setUserRecord}
             />
           }
         />
 
-        <Route path="/home" element={<Main form={form} setForm={setForm} />} />
+        <Route
+          path="/home"
+          element={
+            <Main
+              form={form}
+              setForm={setForm}
+              userRecord={userRecord}
+              setUserRecord={setUserRecord}
+            />
+          }
+        />
         <Route
           path="/profile"
           element={
@@ -177,6 +220,8 @@ const App = () => {
               setLogIn={setLogIn}
               myD={myD}
               setMyD={setMyD}
+              userRecord={userRecord}
+              setUserRecord={setUserRecord}
             />
           }
         />

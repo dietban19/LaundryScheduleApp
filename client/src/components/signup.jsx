@@ -15,6 +15,8 @@ export default function signup({
   setLogIn,
   myD,
   setMyD,
+  userRecord,
+  setUserRecord,
 }) {
   const myRecord = useRecords();
   // useEffect(() => {
@@ -118,6 +120,9 @@ export default function signup({
       // );
       // console.log("HERE NOW", myData)
       setLogIn(true);
+      await myRecord.fetchRecords();
+      const myRec = myRecord;
+      setUserRecord(myRec);
       handleClick();
       navigate("/home");
     }

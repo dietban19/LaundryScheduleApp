@@ -30,7 +30,7 @@ const Calendar = ({
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    if (date < today || isIncluded || userDatas) {
+    if (date < today) {
       return;
     }
     setSelectedDate(date);
@@ -215,7 +215,8 @@ const Calendar = ({
     );
     console.log(bookedUsers);
   }
-
+  // console.log(bookedUsers);
+  const [isBooked, setIsBooked] = useState(false);
   return (
     <div className={styles.calendarContainer}>
       {showPopup && (
@@ -230,6 +231,8 @@ const Calendar = ({
             showBookPopup={showBookPopup}
             setShowBookPopup={setShowBookPopup}
             handleBook={handleBook}
+            bookedUsers={bookedUsers}
+            isBooked={isBooked}
           />
         </div>
       )}
