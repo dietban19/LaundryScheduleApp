@@ -113,16 +113,15 @@ const App = () => {
       }
     }, delay);
   }, [logIn]);
-
+  // console.log(logIn);
   useEffect(() => {
     if (
-      (!form ||
-        !form.firstName ||
-        !form.lastName ||
-        !form.bday ||
-        !form.email ||
-        !form.password) &&
-      logIn
+      !form ||
+      !form.firstName ||
+      !form.lastName ||
+      !form.bday ||
+      !form.email ||
+      !form.password
     ) {
       console.log(form);
       console.log("true");
@@ -131,6 +130,7 @@ const App = () => {
         setForm(myData);
       } else {
         console.log("going");
+        console.log(logIn);
         navigate("/");
       }
       // } else {
