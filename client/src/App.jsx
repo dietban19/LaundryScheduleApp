@@ -131,7 +131,7 @@ const App = () => {
       } else {
         console.log("going");
         console.log(logIn);
-        navigate("/");
+        // navigate("/");
       }
       // } else {
       //   // console.log("HEhHEE", form);
