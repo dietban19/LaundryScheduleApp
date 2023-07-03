@@ -113,7 +113,6 @@ const App = () => {
       }
     }, delay);
   }, [logIn]);
-  console.log(logIn);
 
   useEffect(() => {
     if (
@@ -128,24 +127,21 @@ const App = () => {
       console.log(form);
       console.log("true");
       if (myData) {
-        // console.log("hello");
+        console.log("hello");
         setForm(myData);
       } else {
-        // console.log("going");
+        console.log("going");
         navigate("/");
       }
-    } else {
-      // console.log("HEhHEE", form);
-      setLogIn(true);
-      setTimeout(() => {
-        // console.log("HEREHERHERHEHR");
-        // console.log("now", form);
-        // console.log(1);
-        if (!form.firstName) {
-          // console.log("woohoo");
-          setLogIn(false);
-        }
-      }, 100);
+      // } else {
+      //   // console.log("HEhHEE", form);
+      //   setLogIn(true);
+      //   setTimeout(() => {
+      //     if (!form.firstName) {
+      //       // console.log("woohoo");
+      //       setLogIn(false);
+      //     }
+      //   }, 3000);
     }
   }, [myRecord.records, logIn]);
 

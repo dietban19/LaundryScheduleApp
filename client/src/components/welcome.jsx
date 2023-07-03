@@ -11,7 +11,7 @@ export default function welcome({ form, setForm }) {
   };
   useEffect(() => {
     if (form.email && form.password) {
-      console.log("WELCOME.jsx");
+      // console.log("WELCOME.jsx");
       navigate("/home");
     }
   }, [form]);
