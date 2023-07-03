@@ -71,7 +71,7 @@ const App = () => {
       console.log("Page was reloaded");
 
       setUserRecord(myRecord);
-      console.log(1, form);
+
       setIsReloaded(false);
       if (form.firstName) {
         console.log("HHAISFJHLHASDIASDHAISDKJASHDAJKSHDBASKJDHB");
@@ -79,7 +79,7 @@ const App = () => {
       // console.log(userRecord); // Set the state to false so that subsequent updates don't trigger this condition
     } else {
       console.log("Component updated");
-      console.log(2, form);
+
       setUserRecord(myRecord);
     }
   }, [isReloaded]);
@@ -128,15 +128,24 @@ const App = () => {
       console.log(form);
       console.log("true");
       if (myData) {
-        console.log("hello");
+        // console.log("hello");
         setForm(myData);
       } else {
-        console.log("going");
+        // console.log("going");
         navigate("/");
       }
     } else {
-      console.log("HEhHEE", form);
+      // console.log("HEhHEE", form);
       setLogIn(true);
+      setTimeout(() => {
+        // console.log("HEREHERHERHEHR");
+        // console.log("now", form);
+        // console.log(1);
+        if (!form.firstName) {
+          // console.log("woohoo");
+          setLogIn(false);
+        }
+      }, 100);
     }
   }, [myRecord.records, logIn]);
 
