@@ -59,58 +59,58 @@ function BookingPopup({
   }
 
   function test() {
-    console.log(startDay ? startDay.$d.toString() : selectedDate);
+    console.log(form);
   }
   return (
-    <div className={styles.bookingPopup}>
-      <button onClick={test}>Button</button>
-      <div className={styles.bookingPopup__container}>
-        <button onClick={setClose}>CLose</button>
-        <div className={styles.bookingPopup__content}>
-          <div className="HERE">When:</div>
-          <div className={styles.bookingCalendar}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Start Date"
-                value={startDay || dayjs(selectedDate)}
-                onChange={(newValue) => setStartDay(newValue)}
-                disablePast
-                shouldDisableDate={(date) =>
-                  disabledDates.some(
-                    (disabledDate) =>
-                      date >= disabledDate.start && date <= disabledDate.end
-                  )
-                }
-              />
-              <DatePicker
-                label="End Date"
-                value={endDay}
-                onChange={(newValue) => setEndDay(newValue)}
-                disablePast
-                minDate={dayjs(startDay).add(1, "day")}
-                shouldDisableDate={(date) =>
-                  disabledDates.some(
-                    (disabledDate) =>
-                      date >= disabledDate.start && date <= disabledDate.end
-                  )
-                }
-              />
-            </LocalizationProvider>
-          </div>
-          <button
-            onClick={handleSubmit}
-            disabled={
-              dayjs(startDay).format("D MM YYYY") ===
-              dayjs(endDay).format("D MM YYYY")
-                ? true
-                : false
-            }
-          >
-            Confirm
-          </button>
+    <>
+      {/* <button onClick={test}>Button</button> */}
+
+      <div className={styles.bookingPopup__content}>
+        {/* <button onClick={setClose} className={styles.close}></button> */}
+        <div className="HERE">When:</div>
+        <div className={styles.bookingCalendar}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Start Date"
+              value={startDay || dayjs(selectedDate)}
+              onChange={(newValue) => setStartDay(newValue)}
+              disablePast
+              shouldDisableDate={(date) =>
+                disabledDates.some(
+                  (disabledDate) =>
+                    date >= disabledDate.start && date <= disabledDate.end
+                )
+              }
+            />
+            <DatePicker
+              label="End Date"
+              value={endDay}
+              onChange={(newValue) => setEndDay(newValue)}
+              disablePast
+              minDate={dayjs(startDay).add(1, "day")}
+              shouldDisableDate={(date) =>
+                disabledDates.some(
+                  (disabledDate) =>
+                    date >= disabledDate.start && date <= disabledDate.end
+                )
+              }
+            />
+          </LocalizationProvider>
         </div>
+        <button
+          className={styles.bookNowButton}
+          onClick={handleSubmit}
+          disabled={
+            dayjs(startDay).format("D MM YYYY") ===
+            dayjs(endDay).format("D MM YYYY")
+              ? true
+              : false
+          }
+        >
+          Confirm
+        </button>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -129,6 +129,8 @@ function main({ form, setForm, handleLogOut, userRecord, setUserRecord }) {
               bookedUsers={bookedUsers}
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
+              setClose={handlePopupFalse}
+              form={form}
             />
           </div>
         )}

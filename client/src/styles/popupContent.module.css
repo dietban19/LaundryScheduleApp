@@ -54,14 +54,15 @@
 }
 
 .bookingPopup {
-  position: absolute;
+  /* position: absolute; */
   /* margin-top: 1.2rem; */
 
   /* display: flex;
   flex-direction: column;
   justify-content: center; */
-  align-items: center;
-  background-color: rgba(112, 112, 112, 0.336);
+  /* align-items: center; */
+
+  /* padding: 1.5rem; */
   /* width: 95%; */
   height: 100%;
   width: 100%;
@@ -70,22 +71,24 @@
   z-index: 1;
 }
 .bookingPopup__container {
-  position: inherit;
-  border-radius: 1rem 1rem 0rem 0rem;
   padding: 1rem;
   background-color: var(--clr-neutral-500);
-  height: 95%;
-  width: 100%;
-  bottom: 0;
-}
-
-.bookingPopup__content {
-  background-color: green;
-  /* height: 80%; */
+  background-color: #a9d3ff;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  /* bottom: 0; */
+}
+
+.bookingPopup__content {
+  background-color: green;
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 .react-calendar__tile {
@@ -134,4 +137,19 @@
 }
 .close:after {
   transform: rotate(-45deg);
+}
+
+.secondPopClose {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  /* inset: 1rem 0rem 0rem 2rem; */
+  /* right: 32px;
+  top: 32px;
+  width: 32px; */
+  right: 1.5rem; /* Adjust the positioning as per your requirement */
+  top: 1rem; /* Adjust the positioning as per your requirement */
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
 }

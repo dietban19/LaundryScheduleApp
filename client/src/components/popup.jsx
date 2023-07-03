@@ -13,6 +13,8 @@ const Popup = ({
   setBookedDate,
   handleBook,
   bookedUsers,
+  setClose,
+  form,
 }) => {
   const renderDates = () => {
     const { dayOne, dayLast } = dayRange.dates;
@@ -75,15 +77,7 @@ const Popup = ({
       : false;
 
   function tester() {
-    console.log(bookedUsers);
-    // console.log(selectedDate <= new Date(bookedUsers[1].dates.endDay));
-    // console.log(selectedDate);
-    // // const firstName = filteredObject;
-    // //  ? filteredObject.firstName : "";
-    // // console.log("SER", filteredObject);
-    // console.log("booked?", isBooked);
-    console.log(isIncludeds);
-    console.log(bookedBy.firstName);
+    console.log(bookedBy);
   }
   function formatDate(date) {
     const day = dayjs(date).format("dddd");
@@ -102,7 +96,7 @@ const Popup = ({
       {/* <button onClick={tester}>Button</button> */}
 
       <div className={styles.popupContent}>
-        <button onClick={tester}>BUT</button>
+        {/* <button onClick={tester}>BUT</button> */}
         <button onClick={onClose} className={styles.close}></button>
         {/* <h3>Selected Date: {selectedDate.toDateString()}</h3> */}
         <div className={styles.popupBody}>
@@ -145,13 +139,27 @@ const Popup = ({
                   This Date has been booked by:
                 </div>
                 <div className={styles.takenName}>{bookedBy.firstName}</div>
+                <div className={styles.takeDate}>
+                  From: {formatDate(bookedBy.dates.startDay)}
+                </div>
+                <div className={styles.takeDate}>
+                  To: {formatDate(bookedBy.dates.endDay)}
+                </div>
               </>
             ) : (
               <>
                 <div className={styles.popUpBody__header}>Available</div>
-                <button className={styles.bookNowButton} onClick={handleBook}>
+                {/* <button className={styles.bookNowButton} onClick={handleBook}>
                   Book Now
-                </button>
+                </button> */}
+                <BookingPopup
+                  bookedDate={bookedDate}
+                  setBookedDate={setBookedDate}
+                  form={form}
+                  bookedUsers={bookedUsers}
+                  selectedDate={selectedDate}
+                  setClose={setClose}
+                />
               </>
             )}
           </div>

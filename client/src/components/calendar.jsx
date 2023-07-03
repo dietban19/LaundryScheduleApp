@@ -12,6 +12,8 @@ const Calendar = ({
   bookedUsers,
   selectedDate,
   setSelectedDate,
+  setClose,
+  form,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
 
@@ -228,11 +230,23 @@ const Calendar = ({
             month={months[dayjs(selectedDate).format("M") - 1]}
             bookedDate={bookedDate}
             setBookedDate={setBookedDate}
-            showBookPopup={showBookPopup}
-            setShowBookPopup={setShowBookPopup}
+            // showBookPopup={showBookPopup}
+            // setShowBookPopup={setShowBookPopup}
             handleBook={handleBook}
             bookedUsers={bookedUsers}
             isBooked={isBooked}
+            setClose={setClose}
+            form={form}
+            /*                 selectedDate,
+  onClose,
+  dayRange,
+  month,
+  bookedDate,
+  setBookedDate,
+  handleBook,
+  bookedUsers,
+  setClose,
+  form, */
           />
         </div>
       )}
