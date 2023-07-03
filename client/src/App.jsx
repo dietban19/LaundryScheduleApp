@@ -150,7 +150,6 @@ const App = () => {
   }, [myRecord.records, logIn]);
 
   function handleClick() {
-    // myRecord.fetchRecords();
     console.log("NEW RECORD IS ", myRecord.records);
   }
 
