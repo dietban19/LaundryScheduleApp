@@ -71,11 +71,15 @@ const App = () => {
       console.log("Page was reloaded");
 
       setUserRecord(myRecord);
-
+      console.log(1, form);
       setIsReloaded(false);
+      if (form.firstName) {
+        console.log("HHAISFJHLHASDIASDHAISDKJASHDAJKSHDBASKJDHB");
+      }
       // console.log(userRecord); // Set the state to false so that subsequent updates don't trigger this condition
     } else {
       console.log("Component updated");
+      console.log(2, form);
       setUserRecord(myRecord);
     }
   }, [isReloaded]);
@@ -109,6 +113,7 @@ const App = () => {
       }
     }, delay);
   }, [logIn]);
+  console.log(logIn);
 
   useEffect(() => {
     if (
@@ -117,17 +122,18 @@ const App = () => {
       !form.lastName ||
       !form.bday ||
       !form.email ||
-      !form.password
-      //    &&
-      // logIn
+      (!form.password && logIn)
     ) {
       if (myData) {
-        console.log("hello");
+        // console.log("hello");
         setForm(myData);
       } else {
-        console.log("app");
+        // console.log("app");
         navigate("/");
       }
+    } else {
+      console.log("HEhHEE", form);
+      setLogIn(true);
     }
   }, [myRecord.records, logIn]);
 
@@ -136,7 +142,7 @@ const App = () => {
     console.log("NEW RECORD IS ", myRecord.records);
   }
 
-  console.log("ORRR", myRecord);
+  // console.log("ORRR", myRecord);
   // console.log("USERECR", userRecord);
 
   useEffect(() => {
