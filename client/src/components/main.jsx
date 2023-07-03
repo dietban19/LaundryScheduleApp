@@ -117,22 +117,21 @@ function main({ form, setForm, handleLogOut, userRecord, setUserRecord }) {
       {/* {!form.firstName ? <div className={styles.loading}></div> : null} */}
       <div className={styles.mainContent}>
         <div className={styles.mainHeader}>Welcome, {form.firstName} </div>
-        <div className={styles.mainCalendar}>
-          {bookedUsers && (
-            <div className={styles.mainCalendar}>
-              <Calendar
-                bookedDate={bookedDate}
-                setBookedDate={setBookedDate}
-                showBookPopup={showBookPopup}
-                setShowBookPopup={setShowBookPopup}
-                handleBook={handleBook}
-                bookedUsers={bookedUsers}
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-              />
-            </div>
-          )}
-        </div>
+
+        {bookedUsers && (
+          <div className={styles.mainCalendar}>
+            <Calendar
+              bookedDate={bookedDate}
+              setBookedDate={setBookedDate}
+              showBookPopup={showBookPopup}
+              setShowBookPopup={setShowBookPopup}
+              handleBook={handleBook}
+              bookedUsers={bookedUsers}
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+            />
+          </div>
+        )}
       </div>
       <NavBar />
     </div>
