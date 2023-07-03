@@ -51,18 +51,15 @@ function main({ form, setForm, handleLogOut, userRecord, setUserRecord }) {
     console.log("claled async");
   }
   useEffect(() => {
-    console.log("THIS IS HERE", records);
-    console.log(1234, userRecord);
-
+    // console.log("THIS IS HERE", records);
+    // console.log(1234, userRecord);
     callRecords();
   }, [userRecord]);
   function callRecords() {
-    console.log("CALING");
-    console.log(1, userRecord);
-    console.log(2, records);
+    // console.log("CALING");
+    // console.log(1, userRecord);
+    // console.log(2, records);
     if (records.records.length <= 0) {
-      console.log(1);
-
       if (!userRecord) {
         // console.log("EMPTY");
         // asyncFunc();
@@ -79,8 +76,8 @@ function main({ form, setForm, handleLogOut, userRecord, setUserRecord }) {
 
       setBookedUsers(booked);
     } else {
-      console.log("NOTTT");
-      console.log(records);
+      // console.log("NOTTT");
+      // console.log(records);
       const booked = records.records.filter(
         (customer) =>
           customer.dates.startDay !== "" && customer.dates.endDay !== ""
