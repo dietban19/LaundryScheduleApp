@@ -12,6 +12,8 @@ export default function login({
   setLogIn,
   myD,
   setMyD,
+  userRecord,
+  setUserRecord,
 }) {
   const [info, setInfo] = useState({
     email: "",
@@ -20,6 +22,7 @@ export default function login({
   const records = useRecords();
 
   const navigate = useNavigate();
+
   function updateForm(value) {
     return setInfo((prev) => {
       return { ...prev, ...value };
@@ -117,17 +120,22 @@ export default function login({
           },
           mr: matchedRecord,
         };
-        records.toggleLog(inputs);
+        records.toggleLogIn(inputs);
         const myData = records.records.find((record) =>
           record.devices.some(
             (device) => device.id === storedDeviceID && device.loggedIn === true
           )
         );
-        console.log("HERE NOW", myData);
+        console.log("HERE NOW", inputs);
         setMyD(myData);
         setLogIn(true);
         setForm(inputs.main);
+        console.log("about to fetch");
 
+        await records.fetchRecords();
+        const myRec = records;
+        setUserRecord(myRec);
+        console.log(userRecord);
         navigate("/home");
       }
     }

@@ -14,6 +14,8 @@ export default function profile({
   logIn,
   myD,
   setMyD,
+  userRecord,
+  setUserRecord,
 }) {
   const myRecord = useRecords();
   const navigate = useNavigate();
@@ -21,7 +23,11 @@ export default function profile({
     (record) =>
       record.devices.id === storedDeviceID && record.email === form.email
   );
-
+  useEffect(() => {
+    // console.log("AFTERAFTER");
+    console.log(myRecord);
+    // navigate("/main");
+  }, [myRecord]);
   const reload = () => {
     setTimeout(() => {
       window.location.reload();
@@ -50,7 +56,7 @@ export default function profile({
       if (deviceIndex !== -1) {
         updatedMatchingRecord.devices[deviceIndex].loggedIn = false;
       }
-      console.log(updatedMatchingRecord);
+      // console.log(updatedMatchingRecord);
       const inputs = {
         main: updatedMatchingRecord,
         mr: matchingRecord,
@@ -74,7 +80,7 @@ export default function profile({
           (device) => device.id === storedDeviceID && device.loggedIn === true
         )
       );
-      console.log("AFTER", myRecord.records, myData);
+      // console.log("AFTER", myRecord.records, myData);
 
       setMyD(myData);
 

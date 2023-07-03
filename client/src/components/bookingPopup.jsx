@@ -32,10 +32,9 @@ function BookingPopup({
     const matchedRecord = myRecord.records.find(
       (record) => record.email === form.email
     );
-    console.log("start", startDay.$d);
-    console.log("end", endDay);
+
     setBookedDate({
-      startDate: startDay.$d.toString(),
+      startDate: startDay ? startDay.$d.toString() : selectedDate.toString(),
       endDate: endDay.$d.toString(),
     });
     console.log("BOOKEDDATE", bookedDate);
@@ -48,7 +47,7 @@ function BookingPopup({
         email: matchedRecord.email,
         password: matchedRecord.password,
         dates: {
-          startDay: startDay.$d.toString(),
+          startDay: startDay ? startDay.$d.toString() : selectedDate.toString(),
           endDay: endDay.$d.toString(),
         },
       },
@@ -60,7 +59,7 @@ function BookingPopup({
   }
 
   function test() {
-    console.log(selectedDate);
+    console.log(startDay ? startDay.$d.toString() : selectedDate);
   }
   return (
     <div className={styles.bookingPopup}>
