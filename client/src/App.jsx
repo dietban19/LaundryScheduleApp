@@ -125,11 +125,13 @@ const App = () => {
         !form.password) &&
       logIn
     ) {
+      console.log(form);
+      console.log("true");
       if (myData) {
-        // console.log("hello");
+        console.log("hello");
         setForm(myData);
       } else {
-        // console.log("app");
+        console.log("going");
         navigate("/");
       }
     } else {
