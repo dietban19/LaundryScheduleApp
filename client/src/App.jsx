@@ -117,12 +117,13 @@ const App = () => {
 
   useEffect(() => {
     if (
-      !form ||
-      !form.firstName ||
-      !form.lastName ||
-      !form.bday ||
-      !form.email ||
-      (!form.password && logIn)
+      (!form ||
+        !form.firstName ||
+        !form.lastName ||
+        !form.bday ||
+        !form.email ||
+        !form.password) &&
+      logIn
     ) {
       if (myData) {
         // console.log("hello");
